@@ -1,6 +1,6 @@
 <?php
 	define("HOST", "localhost");
-	define("DB", "doanweb");
+	define("DB", "ivymoda");
 	define("USER", "root");
 	define("PASSWORD", "");
 ?>
