@@ -55,10 +55,6 @@
                                 <div class="product-info-item-title">Nhập giá</div>
                                 <input type="text" placeholder="Nhập giá" class="product-info-item-input" name="pro-price">
                             </div>
-                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
-                                <div class="product-info-item-title">Nhập số lượng</div>
-                                <input type="text" placeholder="Nhập số lượng" class="product-info-item-input" name="pro-quantity">
-                            </div>
                             <div class="product-info-item col-12 col-sm-12 col-lg-12">
                                 <div class="product-info-item-title">Mô tả</div>
                                 <textarea type="text" placeholder="Nhập mô tả" class="product-info-item-input" name="pro-description"></textarea>

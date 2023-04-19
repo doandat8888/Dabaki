@@ -78,7 +78,7 @@ if (!function_exists('color_format')) {
                 <div class="selector-actions">
                     <div class="quantity mb-3" style="clear: both;">
                             <button class="minusdecrease">-</button>
-                            <input type="text" value="1" min="0" max="'.$product->getQuantity().'" name="prod_quantity" class="detail-number">
+                            <input type="text" value="1" min="0"" name="prod_quantity" class="detail-number">
                             <button class="plusincrease">+</button>
                     </div>
                     <br style="clear: both"></br>
@@ -87,7 +87,6 @@ if (!function_exists('color_format')) {
                         <input type="hidden" name="prod_name" value="'.$product->getName().'">
                         <input type="hidden" name="prod_image" value="'.$product->getImage01().'">
                         <input type="hidden" name="prod_price" value="'.$product->getPrice().'">
-                        <input type="hidden" name="prod_quantity_max" value="'.$product->getQuantity().'">
             
                         <button type="submit" name="cartcontroller" value="addToCart" class="detail-btn add-btn gap-2 mx-auto ">Thêm vào giỏ</button>
                         <button type="submit" name="cartcontroller" value="buyNow" class="detail-btn buy-btn gap-2">Mua ngay</button>

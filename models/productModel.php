@@ -15,9 +15,9 @@
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
                     $product = new Product($rows["id"], $rows["name"], 
-                    $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], 
+                    $rows["color"], $rows["size"], $rows["price"], 
                     $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], 
-                    $rows["image02"], $rows["status"]);
+                    $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -36,7 +36,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -71,7 +71,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -90,7 +90,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -110,9 +110,9 @@
             if (mysqli_num_rows($result) > 0){
                 while ($rows = mysqli_fetch_assoc($result)){
                     $product = new Product($rows["id"], $rows["name"], $rows["color"], 
-                    $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], 
+                    $rows["size"], $rows["price"], $rows["type"], 
                     $rows["description"], $rows["category_id"], $rows["image01"], 
-                    $rows["image02"], $rows["status"]);
+                    $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -133,9 +133,9 @@
             if (mysqli_num_rows($result) > 0){
                 while ($rows = mysqli_fetch_assoc($result)){
                     $product = new Product($rows["id"], $rows["name"], $rows["color"], 
-                    $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], 
+                    $rows["size"], $rows["price"], $rows["type"], 
                     $rows["description"], $rows["category_id"], $rows["image01"], 
-                    $rows["image02"], $rows["status"]);
+                    $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -168,7 +168,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -187,7 +187,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -261,7 +261,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -303,7 +303,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -346,7 +346,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);
@@ -390,7 +390,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["quantity"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"]);
+                    $product = new Product($rows["id"], $rows["name"], $rows["color"], $rows["size"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
                     array_push($data, $product);
                 }
                 giaiPhongBoNho($link, $result);

@@ -74,10 +74,6 @@
                         <div class='product-info-item-title'>Nhập giá</div>
                         <input type='text' class='product-info-item-input' name='pro-price' value=" . $product->getPrice() . ">
                     </div>
-                    <div class='product-info-item col-12 col-sm-6 col-lg-6'>
-                        <div class='product-info-item-title'>Nhập số lượng</div>
-                        <input type='text' class='product-info-item-input' name='pro-quantity' value=" .$product->getQuantity() . ">
-                    </div>
                     <div class='product-info-item col-12 col-sm-12 col-lg-12'>
                         <div class='product-info-item-title'>Mô tả</div>
                         <textarea class='product-info-item-input' name='pro-description'>$description</textarea>

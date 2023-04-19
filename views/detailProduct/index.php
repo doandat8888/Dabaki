@@ -77,6 +77,19 @@
             <div class='col-lg-12 col-12 sizechart'>
                 <h3>Size chart</h3>
                 <img class="sizechart-img" src='../../src/img/sizechart.jpg'>
+                <?php 
+                    include_once "../../controllers/shopController.php";
+                    include_once "../../models/productModel.php";
+                    $controller = new ShopController();
+                    $model = new ProductModel();
+                    if(isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $data = $model->getProductById($id);
+                        $shopId = $data[0]->getShopId();
+                        $controller->getShopByIdDetailProduct($shopId);
+                    }
+                    
+                ?>
                 <div class='heading'>
                     <h2>Có thể bạn sẽ thích</h2>
                 </div>
