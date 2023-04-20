@@ -1,22 +1,31 @@
 <?php
     include_once "../../controllers/billDetailController.php";
+    include_once "../../controllers/productSizeColorController.php";
+    include_once "../../models/colorModel.php";
+    include_once "../../models/sizeModel.php";
+    include_once "../../models/productModel.php";
     $detailBillController = new BillDetailController();
     $productController = new ProductController();
+    $colorModel = new ColorModel();
+    $sizeModel = new SizeModel();
+    $productSizeColorController = new ProductSizeColorController();
     if ($result == true){
         echo "<script type='text/javascript'>alert('Thêm hóa đơn thành công');</script>";
         if(isset($_SESSION['cart'])&&(is_array($_SESSION['cart']))){
             if(count($_SESSION['cart']) > 0){
-                // for($i = 0; $i < count($_SESSION['cart']); $i++){
-                //     // $quantityBuy = $_SESSION['cart'][$i][5];
-                //     // $name = $_SESSION['cart'][$i][0];
-                //     $detailBillController->setBillDetail($billId, $_SESSION['cart'][$i][0], $_SESSION['cart'][$i][5], $_SESSION['cart'][$i][4], strtolower( $_SESSION['cart'][$i][3]), $_SESSION['cart'][$i][2]);
-                //     $productController->getProductByNameProduct($_SESSION['cart'][$i][5], $_SESSION['cart'][$i][0]);
-                // }
-
                 foreach ($_SESSION['cart'] as $prod) : extract($prod) ?>
                     <?php
-                        $detailBillController->setBillDetail($billId, $prod_name, $prod_quantity, $prod_color, $prod_size, $prod_price);
-                        $productController->getProductByNameProduct($prod_quantity, $prod_name);
+                        $productModel = new ProductModel();
+                        $productData = $productModel->getProductById($prod_id);
+                        $shopId = $productData[0]->getShopId();
+                        $detailBillController->setBillDetail($billId, $prod_name, $prod_quantity, $prod_color, rtrim(strtolower($prod_size)), $prod_price, $shopId);
+                        $sizeProduct = strtolower($prod_size);
+                        $sizeData = $sizeModel->getSizeByName($sizeProduct);
+                        $colorData = $colorModel->getColorByName($prod_color);
+                        $sizeId = $sizeData[0]->getId();
+                        $colorId = $colorData[0]->getId();
+                        //$productController->getProductByNameProduct($prod_quantity, $prod_name);
+                        $productSizeColorController->getProductSizeColor($prod_quantity, $prod_id, $sizeId, $colorId, $shopId);
                     ?>
                 <?php
                 endforeach;

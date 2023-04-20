@@ -4,10 +4,10 @@
     include_once ($filepath. '/../modules/db_module.php');
     class billDetailModel{
         //Thêm mới
-        public function setBillDetail($bill_id, $product_name, $product_quantity, $product_color, $product_size, $product_price){
+        public function setBillDetail($bill_id, $product_name, $product_quantity, $product_color, $product_size, $product_price, $shop_id){
             $link = NULL;
             taoKetNoi($link);
-            $query = "INSERT INTO `detail_bill` (`bill_id`, `product_name`, `product_quantity`, `product_color`, `product_size`, `product_price`, `status`) VALUES ('$bill_id', '$product_name', '$product_quantity', '$product_color', '$product_size', '$product_price', 1)";
+            $query = "INSERT INTO `detail_bill` (`bill_id`, `product_name`, `product_quantity`, `product_color`, `product_size`, `product_price`, `shop_id`, `status`) VALUES ('$bill_id', '$product_name', '$product_quantity', '$product_color', '$product_size', '$product_price', '$shop_id', 1)";
             $result = chayTruyVanKhongTraVeDL($link, $query);
             return $result;
         }
@@ -37,7 +37,7 @@
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
-                    $category = new Bill_detail($rows["id"], $rows["bill_id"], $rows["product_name"], $rows["product_quantity"], $rows['product_color'], $rows['product_size'], $rows['product_price'], $rows['status']);
+                    $category = new Bill_detail($rows["id"], $rows["bill_id"], $rows["product_name"], $rows["product_quantity"], $rows['product_color'], $rows['product_size'], $rows['product_price'], $rows['shop_id'], $rows['status']);
                     array_push($data, $category);
                 }
                 giaiPhongBoNho($link, $result);

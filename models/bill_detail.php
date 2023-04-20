@@ -7,6 +7,7 @@
         private $product_color;
         private $product_size;
         private $product_price;
+        private $shop_id;
         private $status;
 
         public function getId() {return $this->id;}
@@ -16,9 +17,10 @@
         public function getProductColor() {return $this->product_color;}
         public function getProductSize() {return $this->product_size;}
         public function getProductPrice() {return $this->product_price;}
+        public function getShopId() {return $this->shop_id;}
         public function getStatus() {return $this->status;}
 
-        public function __construct($id, $bill_id, $product_name, $product_quantity, $product_color, $product_size, $product_price, $status)
+        public function __construct($id, $bill_id, $product_name, $product_quantity, $product_color, $product_size, $product_price, $shop_id, $status)
         {
             $this->id = $id;
             $this->bill_id = $bill_id;
@@ -27,6 +29,7 @@
             $this->product_color = $product_color;
             $this->product_size = $product_size;
             $this->product_price = $product_price;
+            $this->shop_id = $shop_id;
             $this->status = $status;
         }
     }

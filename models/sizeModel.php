@@ -42,5 +42,24 @@
             }
             return $data;
         }
+
+        public function getSizeByName($sizeName) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * from sizes WHERE name = '$sizeName'";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $size = new Size($rows["id"], $rows["name"]);
+                    array_push($data, $size);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            return $data;
+        }
     }
 ?>

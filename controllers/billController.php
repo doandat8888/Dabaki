@@ -11,9 +11,9 @@
             $this->model1 = new billDetailModel();
         }
 
-        public function setBill($id, $cus_firstName, $cus_lastName, $email, $phoneNumber, $total, $address){
+        public function setBill($id, $cus_firstName, $cus_lastName, $email, $phoneNumber, $total, $address, $shop_id){
             $billId = $id;
-            $result = $this->model->setBill($id, $cus_firstName, $cus_lastName, $email, $phoneNumber, $total, $address);
+            $result = $this->model->setBill($id, $cus_firstName, $cus_lastName, $email, $phoneNumber, $total, $address, $shop_id);
             include_once "../../views/checkout/result-add-bill.php";
         }
 

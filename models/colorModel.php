@@ -42,5 +42,24 @@
             }
             return $data;
         }
+
+        public function getColorByName($colorName) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * from colors WHERE name = '$colorName'";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $color = new Color($rows["id"], $rows["name"], $rows["colorHex"]);
+                    array_push($data, $color);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            return $data;
+        }
     }
 ?>

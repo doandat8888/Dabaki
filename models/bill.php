@@ -7,6 +7,7 @@
         private $phoneNumber;
         private $total;
         private $address;
+        private $shop_id;
         private $status;
 
         public function getId() {return $this->id;}
@@ -16,9 +17,10 @@
         public function getPhoneNumber() {return $this->phoneNumber;}
         public function getTotal() {return $this->total;}
         public function getAddress() {return $this->address;}
+        public function getShopId() {return $this->shop_id;}
         public function getStatus() {return $this->status;}
 
-        public function __construct($id, $cus_firstName, $cus_lastName, $email, $phoneNumber, $total, $address, $status)
+        public function __construct($id, $cus_firstName, $cus_lastName, $email, $phoneNumber, $total, $address, $shop_id, $status)
         {
             $this->id = $id;
             $this->cus_firstName = $cus_firstName;
@@ -27,6 +29,7 @@
             $this->phoneNumber = $phoneNumber;
             $this->total = $total;
             $this->address = $address;
+            $this->shop_id = $shop_id;
             $this->status = $status;
         }
     }
