@@ -9,37 +9,14 @@
 ?>
 <!-- format màu -->
 <?php
-if (!function_exists('color_format')) {
-    function color_format($color) {
-        $colorHex = "";
-        $arraycolor = array(
-            "blue" => "C6E9EC",
-            "white" => "FFFFFF",
-            "pink" => "FB6E7C",
-            "orange" => "F3A45F",
-            "yellow" => "F4ED95",
-            "brown" => "C4B095",
-            "red" => "EC3333",
-            "black" => "212529",
-            "green" => "98A882",
-            "gray" => "A8A9AD",
-        );
-        while($element = current($arraycolor)) {
-            if(key($arraycolor) == $color) {
-                $colorHex = $arraycolor[key($arraycolor)];
-            }
-            next($arraycolor);
-        }
-            
-        
-        return $colorHex;
-    }
-}
 ?>
 <?php
     foreach ($data as $product) {
-        $arraysize = explode(", ",$product->getSize());
-        $arraycolor = explode(", ",$product->getColor());?>
+        include_once "../../models/productSizeColorModel.php";
+        $productSizeColorModel = new ProductSizeColorModel();
+        $arraysize = $productSizeColorModel->getAllSizeProduct($product->getId());
+        $arraycolor = $productSizeColorModel->getAllColorProduct($product->getId());
+        ?>
             
         <form action="../../controllers/cartController.php" method="POST">
             <?php
@@ -56,8 +33,8 @@ if (!function_exists('color_format')) {
                     <?php
                         foreach ($arraysize as $spro) { 
                             echo '
-                                <input type="radio" class="size-selector" name="size" id="'.strtoupper($spro).'" value="'.strtoupper($spro).' "autocomplete="off" checked="">
-                                <label class="size-btn" for="'.strtoupper($spro).'">'.strtoupper($spro).'</label>';  
+                                <input type="radio" class="size-selector" name="size" id="'.strtoupper($spro->getName()).'" value="'.strtoupper($spro->getName()).' "autocomplete="off" checked="">
+                                <label class="size-btn" for="'.strtoupper($spro->getName()).'">'.strtoupper($spro->getName()).'</label>';  
                         }?>
             <?php
             echo '
@@ -66,10 +43,10 @@ if (!function_exists('color_format')) {
             ?>
             <?php
                     foreach ($arraycolor as $cpro) {
-                        $colorHex = color_format($cpro);
+                        $colorHex = $cpro->getColorHex();
                         echo '
-                            <input type="radio" class="color-selector" name="color" id="'.strtolower($cpro).'" value="'.strtolower($cpro).'" autocomplete="off" checked="">
-                            <label class="color-btn" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro).'"></label>';
+                            <input type="radio" class="color-selector" name="color" id="'.strtolower($cpro->getName()).'" value="'.strtolower($cpro->getName()).'" autocomplete="off" checked="">
+                            <label class="color-btn" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>';
                     }
             ?>
             <?php
