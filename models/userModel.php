@@ -29,6 +29,33 @@
             }
             return $data;
         }
+
+        public function getUserById($idUser) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * from users WHERE `id` = '$idUser'";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $_SESSION['firstName'] = $rows['firstName'];
+                    $_SESSION['lastName'] = $rows['lastName'];
+                    $_SESSION['role'] = $rows['role'];
+                    $_SESSION['image'] = $rows['image'];
+                    $user = new User($rows["id"], $rows["username"], $rows["password"], 
+                    $rows["firstName"], $rows["lastName"], $rows["email"], 
+                    $rows["phoneNumber"], $rows["gender"], $rows["image"], 
+                    $rows["role"], $rows['shop_id']);
+                    array_push($data, $user);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            return $data;
+        }
+
         public function setUser($firstName, $lastName, $phoneNumber, $email, $username, $password, $gender) {
             $result = NULL;
             $link = NULL;

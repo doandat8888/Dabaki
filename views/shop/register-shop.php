@@ -34,7 +34,6 @@
                     $shopPhone = $_POST['shop-phone'];
                     $shopController = new ShopController();
                     $shopController->setShop($idShop, $shopName, $shopImg, $shopAddress, $shopPhone);
-
                 }
             ?>
 

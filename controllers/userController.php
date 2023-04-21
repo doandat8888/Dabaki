@@ -19,6 +19,7 @@
                     $_SESSION['shop_id'] = $user->getShopId();
                     $_SESSION['phoneNumber'] = $user->getPhonenumber();
                     $_SESSION['user_id'] = $user->getId();
+                    $_SESSION['user'] = $user;
                 }
                 if(isset($_SESSION['role'])) {
                     $role = $_SESSION['role'];
