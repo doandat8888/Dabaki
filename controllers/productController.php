@@ -41,6 +41,11 @@
             include_once "../../views/admin/manage-product-view.php";
         }
 
+        public function getAllProductByShopIdLimit($shopId, $limit, $offset) {
+            $data = $this->model->getAllProductByShopIdLimit($shopId, $limit, $offset);
+            include_once "../../views/admin/manage-product-view.php";
+        }
+
         public function getAllProductPageByLimit($limit, $offset) {
             $data = $this->model->getAllProductByLimit($limit, $offset);
             include_once "../../views/admin/page-list-view.php";

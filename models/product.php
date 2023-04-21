@@ -2,8 +2,6 @@
     class Product {
         private $id;
         private $name;
-        private $color;
-        private $size;
         private $price;
         private $type;
         private $description;
@@ -13,11 +11,9 @@
         private $shop_id;
         private $status;
 
-        public function __construct($id, $name, $color, $size, $price, $type, $description, $category_id, $image01, $image02, $status, $shop_id) {
+        public function __construct($id, $name, $price, $type, $description, $category_id, $image01, $image02, $status, $shop_id) {
             $this->id = $id;
             $this->name = $name;
-            $this->color = $color;
-            $this->size = $size;
             $this->price = $price;
             $this->type = $type;
             $this->description = $description;
@@ -30,8 +26,6 @@
 
         public function getId() {return $this->id;}
         public function getName() {return $this->name;}
-        public function getColor() {return $this->color;}
-        public function getSize() {return $this->size;}
         public function getPrice() {return $this->price;}
         public function getType() {return $this->type;}
         public function getDescription() {return $this->description;}

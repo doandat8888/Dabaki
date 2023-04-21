@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./manage-shop.css">
+        <link rel="stylesheet" href="./manage-product.css">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
@@ -80,9 +81,12 @@
                         </a>
                     </div>
                 </div>
-                <?php
-                    include_once "pages.php";
-                ?>
+                <div class="page-view col-6 col-sm-6 col-lg-10">
+                    <?php
+                        include_once "pages.php";
+                    ?>
+                </div>
+                
             </div>
         </div>
     </body>

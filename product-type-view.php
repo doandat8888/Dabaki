@@ -1,6 +1,8 @@
 <?php 
     foreach ($data as $product) {
-        $arraycolor = explode(", ",$product->getColor());
+        include_once "./models/productSizeColorModel.php";
+        $productSizeColorModel = new ProductSizeColorModel();
+        $arraycolor = $productSizeColorModel->getAllColorProduct($product->getId());
         echo"
             <div class='col-lg-3 col-md-6 col-6 product'>
                 <div class='card'>
@@ -25,9 +27,9 @@
                                     ";?>
                                     <?php 
                                     foreach($arraycolor as $cpro) {
-                                        $colorHex = color_format($cpro);
+                                        $colorHex = $cpro->getColorHex();
                                         echo '
-                                            <label class="color-button" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro).'"></label>
+                                            <label class="color-button" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
                                         ';
                                     }
                                     ?>

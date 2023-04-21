@@ -8,38 +8,12 @@
     }
 ?>
 <!-- format màu -->
-<?php
-if (!function_exists('color_format')) {
-    function color_format($color) {
-        $colorHex = "";
-        $arraycolor = array(
-            "blue" => "C6E9EC",
-            "white" => "FFFFFF",
-            "pink" => "FB6E7C",
-            "orange" => "F3A45F",
-            "yellow" => "F4ED95",
-            "brown" => "C4B095",
-            "red" => "EC3333",
-            "black" => "212529",
-            "green" => "98A882",
-            "gray" => "A8A9AD",
-        );
-        while($element = current($arraycolor)) {
-            if(key($arraycolor) == $color) {
-                $colorHex = $arraycolor[key($arraycolor)];
-            }
-            next($arraycolor);
-        }
-            
-        
-        return $colorHex;
-    }
-}
-?>
 <?php 
     foreach ($data as $product) {
+        include_once "../../models/productSizeColorModel.php";
+        $productSizeColorModel = new ProductSizeColorModel();
         if($product->getStatus() == 1) {
-            $arraycolor = explode(", ",$product->getColor());
+            $arraycolor = $productSizeColorModel->getAllColorProduct($product->getId());
             echo '
             <div class="col-lg-3 col-md-6 col-6 products">
                 <div class="card">
@@ -64,9 +38,9 @@ if (!function_exists('color_format')) {
                                 ';?>
                                 <?php 
                                 foreach($arraycolor as $cpro) {
-                                    $colorHex = color_format($cpro);
+                                    $colorHex = $cpro->getColorHex();
                                     echo '
-                                        <label class="color-button" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro).'"></label>
+                                        <label class="color-button" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
                                     ';
                                 }
                                 ?>

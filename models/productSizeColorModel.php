@@ -79,5 +79,26 @@
             }
             return $result;
         }
+
+        public function getProductSizeColorByShopIdLimit($shopId, $limit, $offset) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * from productsizecolor WHERE shop_id = $shopId limit $limit OFFSET $offset";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $productSizeColor = new ProductSizeColor($rows["product_id"], $rows["size_id"], $rows["color_id"], $rows["quantity"], $rows["shop_id"]);
+                    array_push($data, $productSizeColor);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            return $data;
+        }
+
+        
     }
 ?>
