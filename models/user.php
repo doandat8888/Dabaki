@@ -10,8 +10,9 @@
         private $gender;
         private $image;
         private $role;
+        private $shop_id;
 
-        public function __construct($id, $username, $password, $firstName, $lastName, $email, $phoneNumber, $gender, $image, $role) {
+        public function __construct($id, $username, $password, $firstName, $lastName, $email, $phoneNumber, $gender, $image, $role, $shop_id) {
             $this->id = $id;
             $this->username = $username;
             $this->password = $password;
@@ -22,6 +23,7 @@
             $this->gender = $gender;
             $this->image = $image;
             $this->role = $role;
+            $this->shop_id = $shop_id;
         }
 
         public function getId() {return $this->id;}
@@ -34,10 +36,11 @@
         public function getGender() {return $this->gender;}
         public function getImage() {return $this->image;}
         public function getRole() {return $this->role;}
+        public function getShopId() {return $this->shop_id;}
 
         public function __toString()
         {
-            return "User($this->id, $this->username, $this->password, $this->firstName, $this->lastName, $this->email, $this->phoneNumber, $this->gender, $this->image, $this->role)";
+            return "User($this->id, $this->username, $this->password, $this->firstName, $this->lastName, $this->email, $this->phoneNumber, $this->gender, $this->image, $this->role, $this->shop_id)";
         }
     }
 ?>

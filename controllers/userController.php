@@ -16,6 +16,9 @@
             if($data != NULL) {
                 foreach($data as $user) {
                     $_SESSION['role'] = $user->getRole();
+                    $_SESSION['shop_id'] = $user->getShopId();
+                    $_SESSION['phoneNumber'] = $user->getPhonenumber();
+                    $_SESSION['user_id'] = $user->getId();
                 }
                 if(isset($_SESSION['role'])) {
                     $role = $_SESSION['role'];
@@ -55,6 +58,12 @@
                     header('Location: ../../views/register/index.php?msg=username-existed');
                 }
             }
-        }   
+        }
+        
+        //Set shop_id sau khi người dùng đăng kí shop
+        public function setShopId($userId, $shopId) {
+            $result = $this->model->setShopId($userId, $shopId);
+            return $result;
+        }
     }
 ?>

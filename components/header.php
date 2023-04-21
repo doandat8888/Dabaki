@@ -18,6 +18,8 @@
                     unset($_SESSION['role']);
                     unset($_SESSION['firstName']);
                     unset($_SESSION['lastName']);
+                    unset($_SESSION['shop_id']);
+                    unset($_SESSION['user_id']);
                 }
             }
         }
@@ -81,6 +83,11 @@
                 Trẻ em
             </a>
         </li>
+        <li class="nav-item">
+            <a href="../../views/shop/index.php" class="nav-item-link">
+                Kênh người bán
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -115,7 +122,7 @@
                     $typeController->getTypeListProduct();
                 ?>
                 <li class="nav-item">
-                    <a href="../../views/product/index.php" class="nav-item-link">
+                    <a href="../../views/shop/index.php" class="nav-item-link">
                         Kênh người bán
                     </a>
                 </li>

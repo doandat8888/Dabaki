@@ -15,7 +15,7 @@
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
                     $shop = new Shop($rows["id"], $rows["name"], 
-                    $rows["img"], $rows["address"], $rows["status"]); 
+                    $rows["img"], $rows["address"], $rows["phoneNumber"], $rows["status"]); 
                     array_push($data, $shop);
                 }
                 giaiPhongBoNho($link, $result);
@@ -35,7 +35,7 @@
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
                     $shop = new Shop($rows["id"], $rows["name"], 
-                    $rows["img"], $rows["address"], $rows["status"]); 
+                    $rows["img"], $rows["address"], $rows["phoneNumber"], $rows["status"]); 
                     array_push($data, $shop);
                 }
                 giaiPhongBoNho($link, $result);
@@ -44,5 +44,18 @@
             }
             return $data;
         }
+
+        public function setShop($id, $name, $img, $address, $phoneNumber) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $query = "INSERT INTO `shops` (`id`, `name`, `img`, `address`, `phoneNumber`, `status`) 
+            VALUES ('$id', '$name', '$img', '$address', '$phoneNumber', 1)";
+            $setShop = chayTruyVanKhongTraVeDL($link, $query);
+            if($setShop) {
+                $result = true;
+            }
+            return $result;
+        }   
     }
 ?>

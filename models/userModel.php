@@ -20,7 +20,7 @@
                     $user = new User($rows["id"], $rows["username"], $rows["password"], 
                     $rows["firstName"], $rows["lastName"], $rows["email"], 
                     $rows["phoneNumber"], $rows["gender"], $rows["image"], 
-                    $rows["role"]);
+                    $rows["role"], $rows['shop_id']);
                     array_push($data, $user);
                 }
                 giaiPhongBoNho($link, $result);
@@ -49,6 +49,20 @@
                 }
             }
             return $result;
-        }   
+        }
+        
+        public function setShopId($userId, $shopId) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $query = "UPDATE users SET `shop_id`= '$shopId' WHERE `id` = $userId";
+            $editcat = chayTruyVanKhongTraVeDL($link, $query);
+            if($editcat) {
+                $result = true;
+            }else {
+                $result = false;
+            }
+            return $result;
+        }
     }
 ?>
