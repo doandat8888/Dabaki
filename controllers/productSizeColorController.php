@@ -24,5 +24,40 @@
             $data = $this->model->getProductSizeColorByShopIdLimit($shopId, $limit, $offset);
             include_once "../../views/admin/manage-product-view.php";
         }
+
+        public function getAllProductSizeColorPage($shopId) {
+            $data = $this->model->getAllProductSizeColor($shopId);
+            if($data != NULL) {
+                $totalProducts = count($data);
+            }
+            include_once "../../views/admin/page-list-view.php";
+        }
+
+        public function getProductSizeColorByProId($productId, $shopId) {
+            $data = $this->model->getProductSizeColorByProId($productId, $shopId);
+            return $data;
+        }
+
+        public function getProductSizeColorByProIdLimit($productId, $shopId, $limit, $offset) {
+            $data = $this->model->getProductSizeColorByProIdLimit($productId, $shopId, $limit, $offset);
+            return $data;
+        }
+
+        public function showPageList($count) {
+            if($count > 0) {
+                $totalProducts = $count;
+                include_once "../../views/admin/page-list-view.php";
+            }
+        }
+
+        public function viewProduct($dataProductSizeColor) {
+            $data = $dataProductSizeColor;
+            include_once "../../views/admin/manage-product-view.php";
+        }
+
+        // public function getProductByNameLimit($name, $limit, $offset) {
+        //     $data = $this->model->getProductByNameLimit($name, $limit, $offset);
+        //     include_once "../../views/admin/manage-product-view.php";
+        // }
     }
 ?>

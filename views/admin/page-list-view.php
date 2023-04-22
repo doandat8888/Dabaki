@@ -6,8 +6,7 @@
     $limit = 4;
     $offset = ($currentPage - 1) * $limit;
     $totalPages = 0;
-    if($data != NULL) {
-        $totalProducts = count($data);
+    if($totalProducts > 0) {
         $totalPages = ceil($totalProducts / $limit);
         for($i = 1; $i <= $totalPages; $i++) {
             echo "
@@ -17,5 +16,6 @@
             ";
         }
     }
+    
 ?>
 

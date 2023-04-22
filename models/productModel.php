@@ -119,12 +119,12 @@
             return $data;
         } 
 
-        public function getProductByName($searchstr){
+        public function getProductByName($shopId, $searchstr){
             $result = null;
             $link = null;
             taoKetNoi($link);
             $data = array();
-            $query = "SELECT * FROM products WHERE `name` LIKE '%$searchstr%'";
+            $query = "SELECT * FROM products WHERE `name` LIKE '%$searchstr%' AND `shop_id` = $shopId";
             $result = chayTruyVanTraVeDL($link, $query);
             if (mysqli_num_rows($result) > 0){
                 while ($rows = mysqli_fetch_assoc($result)){

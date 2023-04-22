@@ -150,8 +150,12 @@
                 <?php
                     include_once "../../controllers/productController.php";
                     include_once "../../controllers/productSizeColorController.php";
+                    include_once "../../models/productModel.php";
+                    include_once "../../models/productSizeColorModel.php";
                     $controller = new ProductController();
                     $productSizeColorController = new ProductSizeColorController();
+                    $productModel = new ProductModel();
+                    $productSizeColorModel = new ProductSizeColorModel();
                     //$controller->getAllProduct();
                     
                     
@@ -210,7 +214,7 @@
                     $limit = 4;
                     $offset = ($currentPage - 1) * $limit;
                     $keyword = "";
-                    $data = NULL;
+                    $data = [];
                     if(isset($_POST['search-submit'])) {
                         if(isset($_SESSION['keyword'])) {
                             if(isset($_POST['keyword'])) {
@@ -226,28 +230,69 @@
                                 $_SESSION['keyword'] = $keyword;
                             }
                         }
-                        $controller->getProductByNameLimit($keyword, $limit, $offset);
+                        //$controller->getProductByNameLimit($keyword, $limit, $offset);
+                        $productData = $productModel->getProductByName($shopId, $keyword);
+                        if($productData != NULL) {
+                            foreach($productData as $product) {
+                                $productSizeColorData = $productSizeColorModel->getProductSizeColorByProIdLimit($product->getId(), $shopId, $limit, $offset);
+                                foreach($productSizeColorData as $productSizeColor) {
+                                    array_push($data, $productSizeColor);
+                                }
+                            }
+                            $productSizeColorController->viewProduct($data);
+                        }
+                        
                     }else {
                         if(isset($_SESSION['keyword'])) {
                             if(isset($_POST['keyword'])) {
                                 $keyword = $_POST['keyword'];
                                 unset($_SESSION['keyword']);
                                 $_SESSION['keyword'] = $keyword;
-                                $controller->getProductByNameLimit($keyword, $limit, $offset);
+                                //$controller->getProductByNameLimit($keyword, $limit, $offset);
+                                $productData = $productModel->getProductByName($shopId, $keyword);
+                                if($productData != NULL) {
+                                    foreach($productData as $product) {
+                                        $productSizeColorData = $productSizeColorModel->getProductSizeColorByProIdLimit($product->getId(), $shopId, $limit, $offset);
+                                        foreach($productSizeColorData as $productSizeColor) {
+                                            array_push($data, $productSizeColor);
+                                        }
+                                    }
+                                    $productSizeColorController->viewProduct($data);
+                                }
                             }else {
                                 if(isset($_POST['page-submit'])) {
                                     $keyword = $_SESSION['keyword'];
-                                    $controller->getProductByNameLimit($keyword, $limit, $offset);
+                                    //$controller->getProductByNameLimit($keyword, $limit, $offset);
+                                    $productData = $productModel->getProductByName($shopId, $keyword);
+                                    if($productData != NULL) {
+                                        foreach($productData as $product) {
+                                            $productSizeColorData = $productSizeColorModel->getProductSizeColorByProIdLimit($product->getId(), $shopId, $limit, $offset);
+                                            foreach($productSizeColorData as $productSizeColor) {
+                                                array_push($data, $productSizeColor);
+                                            }
+                                        }
+                                        $productSizeColorController->viewProduct($data);
+                                    }
                                 }else {
                                     unset($_SESSION['keyword']);
-                                    $productSizeColorController->getAllProductByShopIdLimit($shopId, $limit, $offset);
+                                    $productSizeColorController->getProductSizeColorByShopIdLimit($shopId, $limit, $offset);
                                 }
                             }
                         }else {
                             if(isset($_POST['keyword'])) {
                                 $keyword = $_POST['keyword'];
                                 $_SESSION['keyword'] = $keyword;
-                                $controller->getProductByNameLimit($keyword, $limit, $offset);
+                                //$controller->getProductByNameLimit($keyword, $limit, $offset);
+                                $productData = $productModel->getProductByName($shopId, $keyword);
+                                if($productData != NULL) {
+                                    foreach($productData as $product) {
+                                        $productSizeColorData = $productSizeColorModel->getProductSizeColorByProIdLimit($product->getId(), $shopId, $limit, $offset);
+                                        foreach($productSizeColorData as $productSizeColor) {
+                                            array_push($data, $productSizeColor);
+                                        }
+                                    }
+                                    $productSizeColorController->viewProduct($data);
+                                }
                             }else {
                                 $productSizeColorController->getProductSizeColorByShopIdLimit($shopId, $limit, $offset);
                             }
@@ -264,20 +309,41 @@
         </table>
         <div class="page-list">
             <?php
-                include_once "../../controllers/productController.php";
-                $controller = new ProductController();
+                include_once "../../controllers/productSizeColorController.php";
+                include_once "../../models/productModel.php";
+                include_once "../../models/productSizeColorModel.php";
+                $controller = new ProductSizeColorController();
+                $productModel = new ProductModel();
+                $productSizeColorModel = new ProductSizeColorModel();
                 $name = "";
                 if(isset($_POST['search-submit'])) {
                     if(isset($_POST['keyword'])) {
                         $name = $_POST['keyword'];
-                        $controller->getProductPageByName($name);
+                        $productData = $productModel->getProductByName($shopId, $name);
+                        $countPage = 0;
+                        if($productData != NULL) {
+                            foreach($productData as $product) {
+                                $productSizeColorData = $productSizeColorModel->getProductSizeColorByProId($product->getId(), $shopId);
+                                $countPage += count($productSizeColorData);
+                            }
+                            $controller->showPageList($countPage);
+                        }
                     }
                 }else {
                     if(isset($_SESSION['keyword'])) {
                         $name = $_SESSION['keyword'];
-                        $controller->getProductPageByName($name);
+                        $productData = $productModel->getProductByName($shopId, $name);
+                        $countPage = 0;
+                        if($productData != NULL) {
+                            foreach($productData as $product) {
+                                $productSizeColorData = $productSizeColorModel->getProductSizeColorByProId($product->getId(), $shopId);
+                                $countPage += count($productSizeColorData);
+                            }
+                            $controller->showPageList($countPage);
+                        }
+
                     }else {
-                        $controller->getAllProductPage();
+                        $controller->getAllProductSizeColorPage($shopId);
                     }
                 }
             ?>
