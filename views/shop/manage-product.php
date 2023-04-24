@@ -40,31 +40,33 @@
                             <div class="product-info-item col-12 col-sm-12 col-lg-6">
                                 <div class="product-info-item-title">Màu sắc</div>
                                 <!-- <input type="text" placeholder="Nhập màu sắc" class="product-info-item-input" name="pro-color"> -->
-                                <select title="Chọn màu sắc" class="selectpicker product-info-item-input" name="pro-color[]" id="color" multiple required>
-                                    <option value="yellow" style="color: var(--yellow);">Vàng</option>
-                                    <option value="green" style="color: var(--green);">Xanh lá</option>
-                                    <option value="pink" style="color: var(--pink);">Hồng</option>
-                                    <option value="red" style="color: var(--red);">Đỏ</option>
-                                    <option value="white" style="color: var(--white);">Trắng</option>
-                                    <option value="brown" style="color: var(--brown);">Nâu</option>
-                                    <option value="black" style="color: var(--black);">Đen</option>
-                                    <option value="orange" style="color: var(--orange);">Cam</option>
-                                    <option value="gray" style="color: var(--gray);">Xám</option>
+                                <select class="product-info-item-input" name="pro-color">
+                                    <option value="-1">Chọn màu sắc</option>
+                                    <?php 
+                                        include_once "../../controllers/colorController.php";
+                                        $controller = new ColorController();
+                                        $controller->getAllColorManageProduct();
+                                    ?>
                                 </select>
                             </div>
                             <div class="product-info-item col-12 col-sm-12 col-lg-6">
                                 <div class="product-info-item-title">Kích thước</div>
-                                <select title="Chọn kích thước" class="selectpicker product-info-item-input" name="pro-size[]" id="size" multiple required>
-                                    <option value="s">S</option>
-                                    <option value="m">M</option>
-                                    <option value="l">L</option>
-                                    <option value="xl">XL</option>
-                                    <option value="xxl">XXL</option>
+                                <select class="product-info-item-input" name="pro-size">
+                                    <option value="-1">Chọn kích thước</option>
+                                    <?php 
+                                        include_once "../../controllers/sizeController.php";
+                                        $controller = new SizeController();
+                                        $controller->getAllSizeManageProduct();
+                                    ?>
                                 </select>
                             </div>
                             <div class="product-info-item col-12 col-sm-12 col-lg-6">
                                 <div class="product-info-item-title">Nhập giá</div>
                                 <input type="text" placeholder="Nhập giá" class="product-info-item-input" name="pro-price">
+                            </div>
+                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
+                                <div class="product-info-item-title">Nhập số lượng</div>
+                                <input type="text" placeholder="Nhập số lượng" class="product-info-item-input" name="pro-quantity">
                             </div>
                             <div class="product-info-item col-12 col-sm-12 col-lg-12">
                                 <div class="product-info-item-title">Mô tả</div>
@@ -155,16 +157,17 @@
                     $controller = new ProductController();
                     $productSizeColorController = new ProductSizeColorController();
                     $productModel = new ProductModel();
+                    $productData = $productModel->getAllProduct();
+                    
                     $productSizeColorModel = new ProductSizeColorModel();
                     //$controller->getAllProduct();
                     
                     
                     if(isset($_POST['add-submit'])) {
+                        $productId = count($productData) + 1;
                         $name = $_POST['pro-name'];
-                        $colorArr = $_POST['pro-color'];
-                        $color = implode(', ', $colorArr);
-                        $sizeArr = $_POST['pro-size'];
-                        $size = implode(', ', $sizeArr);
+                        $color = $_POST['pro-color'];
+                        $size = $_POST['pro-size'];
                         $price = $_POST['pro-price'];
                         $quantity = $_POST['pro-quantity'];
                         $type = $_POST['pro-type'];
@@ -172,7 +175,8 @@
                         $categoryId = $_POST['pro-category'];
                         $image01 = $_POST['pro-img-01'];
                         $image02 = $_POST['pro-img-02'];
-                        $controller->setProduct($name, $color, $size, $price, $quantity, $type, $description, $categoryId, $image01, $image02);
+                        $controller->setProduct($productId, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId);
+                        $productSizeColorController->setProductSizeColor($productId, $size, $color, $quantity, $shopId);
                     }
                     
                     if(isset($_POST['edit-submit'])) {

@@ -155,5 +155,17 @@
             }
             return $data;
         }
+
+        public function setProductSizeColor($productId, $sizeId, $colorId, $quantity, $shopId) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $query = "INSERT INTO `productsizecolor` (`product_id`, `size_id`, `color_id`, `quantity`, `shop_id`) VALUES ('$productId', '$sizeId', '$colorId', '$quantity', '$shopId')";
+            $setProductSizeColor = chayTruyVanKhongTraVeDL($link, $query);
+            if($setProductSizeColor) {
+                $result = true;
+            }
+            return $result;
+        }
     }
 ?>

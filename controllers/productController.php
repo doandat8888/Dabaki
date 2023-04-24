@@ -51,10 +51,10 @@
             include_once "../../views/admin/page-list-view.php";
         }
 
-        public function setProduct($name, $color, $size, $price, $quantity, $type, $description, $categoryId, $image01, $image02) {
+        public function setProduct($id, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId) {
             $count = 0;
             $result = NULL;
-            $productInfo = ['pro-name', 'pro-color', 'pro-size', 'pro-price', 'pro-quantity', 'pro-type', 'pro-description', 'pro-category', 'pro-img-01', 'pro-img-02'];
+            $productInfo = ['pro-name', 'pro-price', 'pro-quantity', 'pro-type', 'pro-description', 'pro-category', 'pro-img-01', 'pro-img-02'];
             for($i = 0; $i < count($productInfo); $i++) {
                 if($_POST[$productInfo[$i]] == '') {
                     $result = -1;
@@ -64,14 +64,14 @@
                 }
             }
             if($count == count($productInfo)) {
-                $resultInsert = $this->model->setProduct($name, $color, $size, $price, $quantity, $type, $description, $categoryId, $image01, $image02);
+                $resultInsert = $this->model->setProduct($id, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId);
                 if($resultInsert == true) {
                     $result = 0;
                 }else if($resultInsert == false) {
                     $result = 1;
                 }
             }
-            include_once "../../views/admin/resultAdd.php";
+            include_once "../../views/shop/result-product-size-color-add.php";
         }
 
         public function deleteProduct($id) {

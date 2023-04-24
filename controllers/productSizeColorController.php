@@ -55,6 +55,29 @@
             include_once "../../views/admin/manage-product-view.php";
         }
 
+        public function setProductSizeColor($productId, $sizeId, $colorId, $quantity, $shopId) {
+            $count = 0;
+            $result = NULL;
+            $productSizeColorInfo = ['pro-size', 'pro-color', 'pro-quantity'];
+            for($i = 0; $i < count($productSizeColorInfo); $i++) {
+                if($_POST[$productSizeColorInfo[$i]] == '') {
+                    $result = -1;
+                    break;
+                }else {
+                    $count++;
+                }
+            }
+            if($count == count($productSizeColorInfo)) {
+                $resultInsert = $this->model->setProductSizeColor($productId, $sizeId, $colorId, $quantity, $shopId);
+                if($resultInsert == true) {
+                    $result = 0;
+                }else if($resultInsert == false) {
+                    $result = 1;
+                }
+            }
+            include_once "../../views/admin/resultAdd.php";
+        }
+
         // public function getProductByNameLimit($name, $limit, $offset) {
         //     $data = $this->model->getProductByNameLimit($name, $limit, $offset);
         //     include_once "../../views/admin/manage-product-view.php";

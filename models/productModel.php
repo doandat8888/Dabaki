@@ -64,7 +64,7 @@
             return $data;
         }
 
-        public function setProduct($name, $color, $size, $price, $quantity, $type, $description, $categoryId, $image01, $image02) {
+        public function setProduct($id, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId) {
             $result = NULL;
             $link = NULL;
             taoKetNoi($link);
@@ -72,9 +72,9 @@
                 giaiPhongBoNho($link, true);
                 $result = false;
             }else {
-                $query = "INSERT INTO `products` (`name`, `color`, `size`, `price`, `quantity`, `type`, `description`, `category_id`, `image01`, `image02`, `status`) VALUES ('$name', '$color', '$size', '$price', '$quantity', '$type', '$description', '$categoryId', '$image01', '$image02', 1)";
-                $setuser = chayTruyVanKhongTraVeDL($link, $query);
-                if($setuser) {
+                $query = "INSERT INTO `products` (`id`, `name`, `price`, `type`, `description`, `category_id`, `image01`, `image02`, `shop_id`, `status`) VALUES ('$id', '$name', '$price', '$type', '$description', '$categoryId', '$image01', '$image02', '$shopId', 1)";
+                $setProduct = chayTruyVanKhongTraVeDL($link, $query);
+                if($setProduct) {
                     $result = true;
                 }
             }
