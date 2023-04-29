@@ -4,7 +4,6 @@
 ?>
 <?php 
     foreach ($data as $product) {
-        
         $description = $product->getDescription();
         echo "
             <form method='post' action='./index.php?page=manage-product&id=".$product->getId()."'>

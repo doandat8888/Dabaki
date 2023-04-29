@@ -1,4 +1,5 @@
 <?php
+    $filepath = realpath(dirname(__FILE__));
     include_once "../../modules/db_module.php";
     include_once "../../validate_module.php";
 ?>
@@ -61,9 +62,10 @@
                 <?php
                     include_once "../../controllers/productController.php";
                     $controller = new ProductController();
-                    if(isset($_GET['id'])) {
+                    if(isset($_GET['id']) && isset($_GET['colorId'])) {
                         $id = $_GET['id'];
-                        $controller->getProductById($id);
+                        $colorId = $_GET['colorId'];
+                        $controller->getProductById($id, $colorId);
                     }
                 ?>
             </div>   

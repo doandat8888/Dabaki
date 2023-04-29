@@ -162,6 +162,10 @@ img#ProductImg {
     cursor: pointer;
     list-style: none;
 }
+
+.color-btn::before {
+    width: 100%;
+}
 /* .color-btn:nth-of-type(1) {
     background-color: var(--green);
 }

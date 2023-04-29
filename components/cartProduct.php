@@ -1,4 +1,9 @@
 <?php
+    $filepath = realpath(dirname(__FILE__));
+    include_once ($filepath. '/../models/sizeModel.php');
+    include_once ($filepath. '/../models/colorModel.php');
+    $sizeModel = new SizeModel();
+    $colorModel = new ColorModel();
     if (!function_exists('currency_format')) {
         function currency_format($number, $suffix = 'đ') {
             if (!empty($number)) {
@@ -30,7 +35,10 @@
         if(isset($_SESSION['cart'])&&(is_array($_SESSION['cart']))):
             if(sizeof($_SESSION['cart'])>0):
                 foreach ($_SESSION['cart'] as $prod) : extract($prod) ?>
-                    <?php $total_cart_price += $prod_price_total?>
+                    <?php $total_cart_price += $prod_price_total;
+                        $sizeData = $sizeModel->getSizeById($prod_size);
+                        $colorData = $colorModel->getColorById($prod_color);
+                    ?>
                         <div class="cart-item">
                             <div class="row">
                                 <div class="col-3">
@@ -46,10 +54,10 @@
                                     </a>
                                     <div class="cart-item-color-size">
                                         <div class="color">
-                                            Màu sắc: <?= $prod_color ?>
+                                            Màu sắc: <?= $colorData[0]->getName() ?>
                                         </div>
                                         <div class="size">
-                                            Size: <?= $prod_size ?>
+                                            Size: <?= $sizeData[0]->getName() ?>
                                         </div>
                                     </div>
                                     <div class="cart-item-quantity-price">

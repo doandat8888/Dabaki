@@ -206,3 +206,12 @@ td {
     vertical-align: middle !important;
 }
 
+.name-checkbox {
+    padding: 0.2rem !important;
+}
+
+.name-checkbox-txt {
+    margin-left: 0.4rem;
+    margin-bottom: 0 !important;
+}
+

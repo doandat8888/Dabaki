@@ -11,10 +11,11 @@
 <?php
 ?>
 <?php
+    if(isset($_POST['prod_quantity'])) echo $_POST['prod_quantity'];
     foreach ($data as $product) {
         include_once "../../models/productSizeColorModel.php";
         $productSizeColorModel = new ProductSizeColorModel();
-        $arraysize = $productSizeColorModel->getAllSizeProduct($product->getId());
+        $arraysize = $productSizeColorModel->getSizeProductByColorId($product->getId(), $idColor);
         $arraycolor = $productSizeColorModel->getAllColorProduct($product->getId());
         ?>
             
@@ -33,7 +34,7 @@
                     <?php
                         foreach ($arraysize as $spro) { 
                             echo '
-                                <input type="radio" class="size-selector" name="size" id="'.strtoupper($spro->getName()).'" value="'.strtoupper($spro->getName()).' "autocomplete="off" checked="">
+                                <input type="radio" class="size-selector" name="size" id="'.strtoupper($spro->getName()).'" value="'.$spro->getId().' "autocomplete="off" checked="">
                                 <label class="size-btn" for="'.strtoupper($spro->getName()).'">'.strtoupper($spro->getName()).'</label>';  
                         }?>
             <?php
@@ -42,12 +43,24 @@
                 <div class="color-select">';
             ?>
             <?php
-                    foreach ($arraycolor as $cpro) {
-                        $colorHex = $cpro->getColorHex();
+                foreach ($arraycolor as $cpro) {
+                    $colorHex = $cpro->getColorHex();
+                    if($idColor == $cpro->getId()) {
                         echo '
-                            <input type="radio" class="color-selector" name="color" id="'.strtolower($cpro->getName()).'" value="'.strtolower($cpro->getName()).'" autocomplete="off" checked="">
-                            <label class="color-btn" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>';
+                        <a style="height: 40px" href="./index.php?id='.$product->getId().'&colorId='.$cpro->getId().'">
+                            <input type="radio" class="color-selector" name="color" id="'.strtolower($cpro->getName()).'" value="'.$cpro->getId().'" autocomplete="off" checked>
+                            <label class="color-btn" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
+                        </a>
+                        ';
+                    }else {
+                        echo '
+                        <a style="height: 40px" href="./index.php?id='.$product->getId().'&colorId='.$cpro->getId().'">
+                            <label class="color-btn" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
+                        </a>
+                        ';
                     }
+                    
+                }
             ?>
             <?php
             echo '

@@ -1,6 +1,7 @@
 <?php 
     $filepath = realpath(dirname(__FILE__));
     include_once ($filepath. '/../models/productSizeColorModel.php');
+    include_once ($filepath. '/../models/productModel.php');
 ?>
 
 <?php 
@@ -78,9 +79,45 @@
             include_once "../../views/admin/resultAdd.php";
         }
 
-        // public function getProductByNameLimit($name, $limit, $offset) {
-        //     $data = $this->model->getProductByNameLimit($name, $limit, $offset);
-        //     include_once "../../views/admin/manage-product-view.php";
-        // }
+        public function viewProductSizeColorInfo($productSizeColorData, $productData, $sizeData, $colorData) {
+            $productInfo = $productData;
+            $sizeInfo = $sizeData;
+            $colorInfo = $colorData;
+            $productSizeColorInfo = $productSizeColorData;
+            include_once "../../views/shop/update-product-size-color-view.php";
+        }
+
+        public function updateProductSizeColor($productSizeColorId, $productId, $sizeId, $colorId, $quantity, $shopId) {
+            $count = 0;
+            $result = NULL;
+            $productSizeColorInfo = ['pro-size', 'pro-color', 'pro-quantity'];
+            for($i = 0; $i < count($productSizeColorInfo); $i++) {
+                if($_POST[$productSizeColorInfo[$i]] == '') {
+                    $result = -1;
+                    break;
+                }else {
+                    $count++;
+                }
+            }
+            if($count == count($productSizeColorInfo)) {
+                $resultUpdate = $this->model->updateProductSizeColor($productSizeColorId, $productId, $sizeId, $colorId, $quantity, $shopId);
+                if($resultUpdate == true) {
+                    $result = 0;
+                }else if($resultUpdate == false) {
+                    $result = 1;
+                }
+            }
+            include_once "../../views/admin/resultEdit.php";
+        }
+
+        public function deleteProductSizeColor($idProSizeColor) {
+            $result = $this->model->deleteProductSizeColor($idProSizeColor);
+            include_once "../../views/admin/resultDelete.php";
+        }
+
+        public function getProductSizeColorByTypeLimitHome($type, $limit, $offset) {
+            $data = $this->model->getProductSizeColorByTypeLimitHome($type, $limit, $offset);
+            return $data;
+        }
     }
 ?>

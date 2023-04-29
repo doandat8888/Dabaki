@@ -19,11 +19,8 @@
             case 'setting':
                 include_once "setting-shop.php";
                 break;
-            case 'update-product':
-                include_once "updateProduct.php";
-                break;
-            case 'update-category':
-                include_once "updatecategory.php";
+            case 'update-productSizeColor':
+                include_once "update-product-size-color.php";
                 break;
             default:
                 include_once "dashboard.php";

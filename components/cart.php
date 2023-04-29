@@ -15,10 +15,10 @@
                     if(isset($_SESSION['cart'])) {
                         $totalQuantity = 0;
                         foreach ($_SESSION['cart'] as $prod) : extract($prod) ?>
-                        <?php
-                            $totalQuantity += $prod_quantity;
-                        ?>
-                        <?php
+                            <?php
+                                $totalQuantity += $prod_quantity;
+                            ?>
+                            <?php
                         endforeach;
                         if(count($_SESSION['cart'])>0) {
                             echo'

@@ -31,5 +31,6 @@
                 include_once "./register-shop.php";
             }
         ?>
+        <script src="./script.js"></script>
     </body>
 </html>

@@ -12,6 +12,7 @@
     foreach ($data as $product) {
         include_once "../../models/productSizeColorModel.php";
         $productSizeColorModel = new ProductSizeColorModel();
+        $productSizeColorData = $productSizeColorModel->getAllProductSizeColorByProId($product->getId());
         if($product->getStatus() == 1) {
             $arraycolor = $productSizeColorModel->getAllColorProduct($product->getId());
             echo '
@@ -21,12 +22,12 @@
                         <span class="badget">
                             -50%
                         </span>
-                        <a href="./index.php?page=detailproduct&id='.$product->getId().'">
-                            <img class="pro-img pro-img-1 ProductImg" src="'.$product->getImage01().'">
-                            <img class="pro-img" src="'.$product->getImage02().'">
+                        <a href="./index.php?page=detailproduct&id='.$product->getId().'&colorId='.$productSizeColorData[0]->getColorId().'">
+                            <img class="pro-img pro-img-1 ProductImg" src="'.$product->getImage02().'">
+                            <img class="pro-img" src="'.$product->getImage01().'">
                         </a>
                         <div class="pro-btn d-flex">
-                            <a href="./index.php?page=detailproduct&id='.$product->getId().'" class="hidden-btn">
+                        <a href="./index.php?page=detailproduct&id='.$product->getId().'&colorId='.$productSizeColorData[0]->getColorId().'" class="hidden-btn">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
                         </div>
@@ -39,9 +40,15 @@
                                 <?php 
                                 foreach($arraycolor as $cpro) {
                                     $colorHex = $cpro->getColorHex();
-                                    echo '
-                                        <label class="color-button" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
-                                    ';
+                                    if($productSizeColorData[0]->getColorId() == $cpro->getId()) {
+                                        echo '
+                                            <label class="color-button active" style="border: 2px solid gray; background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
+                                        ';
+                                    }else {
+                                        echo '
+                                            <label class="color-button" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
+                                        ';
+                                    }
                                 }
                                 ?>
                                 <?php 
@@ -63,7 +70,7 @@
                                 <strike><div class="product-price__old">'.currency_format($product->getPrice()).'</div></strike>
                             </div>
                         <p></p>
-                        <a href="./index.php?page=detailproduct&id='.$product->getId().'" class="btn btn-primary" style="background-color: transparent; border: none;">
+                        <a href="./index.php?page=detailproduct&id='.$product->getId().'&colorId='.$productSizeColorData[0]->getColorId().'" class="btn btn-primary" style="background-color: transparent; border: none;">
                             <div class="product-cart">
                                 <span class="material-symbols-outlined product-cart-icon">
                                     local_mall

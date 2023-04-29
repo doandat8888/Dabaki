@@ -18,14 +18,10 @@
                         $productModel = new ProductModel();
                         $productData = $productModel->getProductById($prod_id);
                         $shopId = $productData[0]->getShopId();
-                        $detailBillController->setBillDetail($billId, $prod_name, $prod_quantity, $prod_color, rtrim(strtolower($prod_size)), $prod_price, $shopId);
-                        $sizeProduct = strtolower($prod_size);
-                        $sizeData = $sizeModel->getSizeByName($sizeProduct);
-                        $colorData = $colorModel->getColorByName($prod_color);
-                        $sizeId = $sizeData[0]->getId();
-                        $colorId = $colorData[0]->getId();
-                        //$productController->getProductByNameProduct($prod_quantity, $prod_name);
-                        $productSizeColorController->getProductSizeColor($prod_quantity, $prod_id, $sizeId, $colorId, $shopId);
+                        $colorData = $colorModel->getColorById($prod_color);
+                        $sizeData = $sizeModel->getSizeById($prod_size);
+                        $detailBillController->setBillDetail($billId, $prod_name, $prod_quantity, $colorData[0]->getName(), rtrim(strtolower($sizeData[0]->getName())), $prod_price, $shopId);
+                        $productSizeColorController->getProductSizeColor($prod_quantity, $prod_id, $prod_size, $prod_color, $shopId);
                     ?>
                 <?php
                 endforeach;

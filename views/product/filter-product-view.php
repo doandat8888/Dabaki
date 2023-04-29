@@ -8,6 +8,7 @@
             if($product->getStatus() == 1) {
                 include_once "../../models/productSizeColorModel.php";
                 $productSizeColorModel = new ProductSizeColorModel();
+                $productSizeColorData = $productSizeColorModel->getAllProductSizeColorByProId($product->getId());
                 $arraycolor = $productSizeColorModel->getAllColorProduct($product->getId());
                 echo "
                     <div class='col-lg-3 col-md-6 col-6'>
@@ -16,12 +17,12 @@
                                 <span class='badget'>
                                     -50%
                                 </span>
-                                <a href='../detailProduct/index.php?id=".$product->getId()."'>
+                                <a href='../detailProduct/index.php?id=".$product->getId()."&colorId=".$productSizeColorData[0]->getColorId()."'>
                                     <img src='".$product->getImage02()."' class='product-img-content product-img-2'/>
                                     <img src='".$product->getImage01()."' class='product-img-content product-img-1'/>
                                 </a>
                                 <div class='pro-btn d-flex'>
-                                    <a href='../detailProduct/index.php?id=".$product->getId()."' class='hidden-btn'>
+                                <a href='../detailProduct/index.php?id=".$product->getId()."&colorId=".$productSizeColorData[0]->getColorId()."' class='hidden-btn'>
                                         <i class='fa-solid fa-eye'></i>
                                     </a>
                                 </div>
@@ -34,9 +35,15 @@
                                             <?php
                                             foreach($arraycolor as $cpro) {
                                                 $colorHex = $cpro->getColorHex();
-                                                echo '
-                                                    <label class="color-button" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
-                                                ';
+                                                if($productSizeColorData[0]->getColorId() == $cpro->getId()) {
+                                                    echo '
+                                                        <label class="color-button active" style="border: 2px solid gray; background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
+                                                    ';
+                                                }else {
+                                                    echo '
+                                                        <label class="color-button" style="background-color:#'.$colorHex.';" for="'.strtolower($cpro->getName()).'"></label>
+                                                    ';
+                                                }
                                             }
                                             ?>
                                             <?php 
@@ -58,7 +65,7 @@
                                         <strike><div class='product-price__old' style='font-size:12px;'>1.150.000đ</div></strike>
                                     </div>
                                 </p>
-                                <a href='../detailProduct/index.php?id=".$product->getId()."' class='btn btn-primary' style='background-color: transparent; border: none;'>
+                                <a href='../detailProduct/index.php?id=".$product->getId()."&colorId=".$productSizeColorData[0]->getColorId()."' class='btn btn-primary' style='background-color: transparent; border: none;'>
                                     <div class='product-cart'>
                                         <span class='material-symbols-outlined product-cart-icon'>
                                             local_mall

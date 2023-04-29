@@ -138,8 +138,9 @@
             include_once "./product-type-view.php";
         }
 
-        public function getProductById($id) {
+        public function getProductById($id, $colorId) {
             $data = $this->model->getProductById($id);
+            $idColor = $colorId;
             include_once "../../views/detailProduct/product-detail-view.php";
         }
 
@@ -163,10 +164,10 @@
         //     return $data;
         // }
 
-        public function updateProduct($id, $name, $color, $size, $price, $quantity, $type, $description, $categoryId, $image01, $image02) {
+        public function updateProduct($id, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId) {
             $count = 0;
             $result = NULL;
-            $productInfo = ['pro-name', 'pro-color', 'pro-size', 'pro-price', 'pro-quantity', 'pro-type', 'pro-description', 'pro-category', 'pro-img-01', 'pro-img-02'];
+            $productInfo = ['pro-name', 'pro-price', 'pro-type', 'pro-description', 'pro-category', 'pro-img-01', 'pro-img-02'];
             for($i = 0; $i < count($productInfo); $i++) {
                 if($_POST[$productInfo[$i]] == '') {
                     $result = -1;
@@ -176,7 +177,7 @@
                 }
             }
             if($count == count($productInfo)) {
-                $resultEdit = $this->model->updateProduct($id, $name, $color, $size, $price, $quantity, $type, $description, $categoryId, $image01, $image02);
+                $resultEdit = $this->model->updateProduct($id, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId);
                 if($resultEdit == true) {
                     $result = 0;
                 }else if($resultEdit == false) {
@@ -219,5 +220,12 @@
 
             include_once "../../views/product/filterProduct.php";
         }
+
+        public function getAllProductManageProductShop($shopId) {
+            $data = $this->model->getProductByShopId($shopId);
+            include_once "../../views/shop/name-product-manage-product-view.php";
+        }
+
+
     }
 ?>

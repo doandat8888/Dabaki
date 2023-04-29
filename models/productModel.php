@@ -26,6 +26,27 @@
             return $data;
         }
 
+        public function getProductByShopId($shopId) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * from products WHERE `status` = 1 AND `shop_id` = $shopId";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $product = new Product($rows["id"], $rows["name"], $rows["price"], 
+                    $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], 
+                    $rows["image02"], $rows["status"], $rows["shop_id"]);
+                    array_push($data, $product);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            return $data;
+        }
+
         public function getAllProductByLimit($limit, $offset) {
             $result = NULL;
             $link = NULL;
@@ -214,6 +235,25 @@
             return $data;
         }
 
+        public function getProductByIdAndShopId($id, $shopId) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * from products WHERE `id` = $id AND `shop_id` = $shopId";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $product = new Product($rows["id"], $rows["name"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
+                    array_push($data, $product);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            return $data;
+        }
+
         public function deleteProduct($id) {
             $result = NULL;
             $link = NULL;
@@ -228,15 +268,13 @@
             include "../../views/admin/resultDelete.php";
         }
 
-        public function updateProduct($id, $name, $price, $quantity, $type, $description, 
-            $categoryId, $image01, $image02) {
+        public function updateProduct($id, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId) {
             $result = NULL;
             $link = NULL;
             taoKetNoi($link);
-            $query = "UPDATE products SET `name`= '$name', 
-            `price` = '$price', `quantity` = $quantity, `type` = $type, 
+            $query = "UPDATE products SET `name`= '$name', `price` = '$price', `type` = $type, 
             `description` = '$description', category_id = $categoryId, 
-            image01 = '$image01', image02 = '$image02' WHERE `id` = $id";
+            image01 = '$image01', image02 = '$image02' WHERE `id` = $id AND `shop_id` = $shopId";
             $updateProduct = chayTruyVanKhongTraVeDL($link, $query);
             if($updateProduct) {
                 $result = true;

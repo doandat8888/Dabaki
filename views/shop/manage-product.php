@@ -33,9 +33,29 @@
                     </div>
                     <div class="modal-body">
                         <div class="product-info-list col-12 d-flex">
-                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
+                            <div class="name-checkbox col-6 d-flex">
+                                <input type="radio" id="not_have_product" name="name_product_checkbox" value="0" checked/>
+                                <p class="name-checkbox-txt">Chưa có sản phẩm cùng tên</p>
+                            </div>
+                            <div class="name-checkbox col-6 d-flex">
+                                <input type="radio" id="have_product" name="name_product_checkbox" value="1"/>
+                                <p class="name-checkbox-txt">Đã có sản phẩm cùng tên</p>
+                            </div>
+                            <div class="product-info-item col-12 col-sm-12 col-lg-12" id="not_have_product_name">
                                 <div class="product-info-item-title">Tên sản phẩm</div>
                                 <input type="text" placeholder="Nhập tên sản phẩm" class="product-info-item-input" name="pro-name">
+                            </div>
+                            <div class="product-info-item col-12 col-sm-12 col-lg-12" style="display:none" id="have_product_name">
+                                <div class="product-info-item-title">Tên sản phẩm</div>
+                                <!-- <input type="text" placeholder="Nhập màu sắc" class="product-info-item-input" name="pro-color"> -->
+                                <select class="product-info-item-input" name="pro-name-have">
+                                    <option value="-1">Chọn sản phẩm</option>
+                                    <?php 
+                                        include_once "../../controllers/productController.php";
+                                        $controller = new ProductController();
+                                        $controller->getAllProductManageProductShop($shopId);
+                                    ?>
+                                </select>
                             </div>
                             <div class="product-info-item col-12 col-sm-12 col-lg-6">
                                 <div class="product-info-item-title">Màu sắc</div>
@@ -164,29 +184,12 @@
                     
                     
                     if(isset($_POST['add-submit'])) {
-                        $productId = count($productData) + 1;
-                        $name = $_POST['pro-name'];
-                        $color = $_POST['pro-color'];
-                        $size = $_POST['pro-size'];
-                        $price = $_POST['pro-price'];
-                        $quantity = $_POST['pro-quantity'];
-                        $type = $_POST['pro-type'];
-                        $description = $_POST['pro-description'];
-                        $categoryId = $_POST['pro-category'];
-                        $image01 = $_POST['pro-img-01'];
-                        $image02 = $_POST['pro-img-02'];
-                        $controller->setProduct($productId, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId);
-                        $productSizeColorController->setProductSizeColor($productId, $size, $color, $quantity, $shopId);
-                    }
-                    
-                    if(isset($_POST['edit-submit'])) {
-                        if(isset($_GET['id'])) {
-                            $id = $_GET['id'];
+                        $nameProductChxBoxValue = $_POST['name_product_checkbox'];
+                        if($nameProductChxBoxValue == 0) {
+                            $productId = count($productData) + 1;
                             $name = $_POST['pro-name'];
-                            $colorArr = $_POST['pro-color'];
-                            $color = implode(', ', $colorArr);
-                            $sizeArr = $_POST['pro-size'];
-                            $size = implode(', ', $sizeArr);
+                            $color = $_POST['pro-color'];
+                            $size = $_POST['pro-size'];
                             $price = $_POST['pro-price'];
                             $quantity = $_POST['pro-quantity'];
                             $type = $_POST['pro-type'];
@@ -194,17 +197,56 @@
                             $categoryId = $_POST['pro-category'];
                             $image01 = $_POST['pro-img-01'];
                             $image02 = $_POST['pro-img-02'];
-                            $controller->updateProduct($id, $name, $color, $size, $price, $quantity, $type, $description, $categoryId, $image01, $image02);                        
+                            $controller->setProduct($productId, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId);
+                            $productSizeColorController->setProductSizeColor($productId, $size, $color, $quantity, $shopId);
+                        }else {
+                            $productId = $_POST['pro-name-have'];
+                            $productData = $productModel->getProductByIdAndShopId($productId, $shopId);
+                            $name = $productData[0]->getName();
+                            $color = $_POST['pro-color'];
+                            $size = $_POST['pro-size'];
+                            $price = $_POST['pro-price'];
+                            $quantity = $_POST['pro-quantity'];
+                            $type = $_POST['pro-type'];
+                            $description = $_POST['pro-description'];
+                            $categoryId = $_POST['pro-category'];
+                            $image01 = $_POST['pro-img-01'];
+                            $image02 = $_POST['pro-img-02'];
+                            $productSizeColorController->setProductSizeColor($productId, $size, $color, $quantity, $shopId);
+                        }
+                    }
+                    
+                    if(isset($_POST['edit-submit'])) {
+                        if(isset($_GET['id']) && isset($_GET['idProductSizeColor'])) {
+                            $id = $_GET['id'];
+                            $idProductSizeColor = $_GET['idProductSizeColor'];
+                            $name = $_POST['pro-name'];
+                            $color = $_POST['pro-color'];
+                            $size = $_POST['pro-size'];
+                            $price = $_POST['pro-price'];
+                            $quantity = $_POST['pro-quantity'];
+                            $type = $_POST['pro-type'];
+                            $description = $_POST['pro-description'];
+                            $categoryId = $_POST['pro-category'];
+                            $image01 = $_POST['pro-img-01'];
+                            $image02 = $_POST['pro-img-02'];
+                            $controller->updateProduct($id, $name, $price, $type, $description, $categoryId, $image01, $image02, $shopId);
+                            $productSizeColorController->updateProductSizeColor($idProductSizeColor, $id, $size, $color, $quantity, $shopId);
                         }
                     }
                     
 
                     if(isset($_GET['action'])) {
                         if($_GET['action'] == 'delete') {
-                            if(isset($_GET['id'])) {
+                            if(isset($_GET['id']) && isset($_GET['idProSizeColor'])) {
                                 $id = $_GET['id'];
+                                $idProSizeColor = $_GET['idProSizeColor'];
                                 $controller = new ProductController();
-                                $controller->deleteProduct($id);
+                                $productSizeColorController->deleteProductSizeColor($idProSizeColor);
+                                $dataProductSizeColor = $productSizeColorModel->getProductSizeColorByProId($id, $shopId);
+                                if($dataProductSizeColor == NULL) {
+                                    $controller->deleteProduct($id);
+                                }
                             }
                         }
                     }
@@ -234,7 +276,6 @@
                                 $_SESSION['keyword'] = $keyword;
                             }
                         }
-                        //$controller->getProductByNameLimit($keyword, $limit, $offset);
                         $productData = $productModel->getProductByName($shopId, $keyword);
                         if($productData != NULL) {
                             foreach($productData as $product) {
@@ -354,3 +395,5 @@
         </div>
     </div>
 </div>
+
+
