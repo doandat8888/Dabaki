@@ -53,7 +53,7 @@ html, body {
 
 
 .image {
-    width: 50%;
+    width: 40%;
 }
 
 .list {
@@ -120,7 +120,7 @@ html, body {
 }
 
 #header .container {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.5rem 1rem 1.5rem;
     display: flex !important;
     align-items: center !important;
 }

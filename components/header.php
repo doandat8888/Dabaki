@@ -20,6 +20,8 @@
                     unset($_SESSION['lastName']);
                     unset($_SESSION['shop_id']);
                     unset($_SESSION['user_id']);
+                    unset($_SESSION['cart']);
+                    unset($_SESSION['prod_price_total']);
                 }
             }
         }

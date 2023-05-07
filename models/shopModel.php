@@ -56,6 +56,18 @@
                 $result = true;
             }
             return $result;
-        }   
+        }
+        
+        public function updateShop($shopId, $shopName, $shopImg, $shopAddress, $shopPhone) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $query = "UPDATE `shops` SET `name` = '$shopName', `img` = '$shopImg', `address` = '$shopAddress', `phoneNumber` = '$shopPhone' WHERE `id` = $shopId";
+            $updateResult = chayTruyVanKhongTraVeDL($link, $query);
+            if($updateResult) {
+                $result = true;
+            }
+            return $result;
+        }
     }
 ?>

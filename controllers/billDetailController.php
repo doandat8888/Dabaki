@@ -47,5 +47,10 @@
             $data = $this->model->getAllBillDetail();
             return $data;
         }
+
+        public function getBillDetailByShopId($shopId) {
+            $data = $this->model->getBillDetailByShopId($shopId);
+            return $data;
+        }
     }
 ?>

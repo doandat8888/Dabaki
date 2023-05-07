@@ -26,5 +26,10 @@
             $data = $this->model->getAllBill();
             include_once "../../views/admin/dashboard-view.php";
         }
+
+        public function getDashboardDataByShopId($shopId) {
+            $data = $this->model->getBillByShopId($shopId);
+            include_once "../../views/shop/dashboard-view.php";
+        }
     }
 ?>

@@ -17,5 +17,13 @@
             $result = $this->model->setShop($id, $name, $img, $address, $phoneNumber);
             include_once "../../views/shop/result-add-shop.php";
         }
+        public function getShopByIdSetting($shopId) {
+            $data = $this->model->getShopById($shopId);
+            include_once "../../views/shop/setting-shop-view.php";
+        }
+        public function updateShop($shopId, $shopName, $shopImg, $shopAddress, $shopPhone) {
+            $result = $this->model->updateShop($shopId, $shopName, $shopImg, $shopAddress, $shopPhone);
+            include_once "../../views/shop/result-edit-shop.php";
+        }
     }
 ?>

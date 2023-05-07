@@ -47,5 +47,27 @@
             //$resultArr[1] = $data;
             return $data;
         }
+
+        public function getBillDetailByShopId($shopId) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $resultArr = [];
+            //$resultArr[0] = $link;
+            $data = array();
+            $query = "SELECT * from detail_bill WHERE shop_id = $shopId";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $category = new Bill_detail($rows["id"], $rows["bill_id"], $rows["product_name"], $rows["product_quantity"], $rows['product_color'], $rows['product_size'], $rows['product_price'], $rows['shop_id'], $rows['status']);
+                    array_push($data, $category);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            //$resultArr[1] = $data;
+            return $data;
+        }
     }
 ?>

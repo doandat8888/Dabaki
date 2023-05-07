@@ -67,13 +67,13 @@
                     <div class="type">
                         <div class="type-list">
                             <div class="type-list-link">
-                                <div class="type-item">IVY Men</div>
+                                <div class="type-item">DABA Men</div>
                             </div>
                             <div class="type-list-link">
-                                <div class="type-item">IVY Women</div>
+                                <div class="type-item">DABA Women</div>
                             </div>
                             <div class="type-list-link">
-                                <div class="type-item">IVY Kid</div>
+                                <div class="type-item">DABA Kid</div>
                             </div>
                             
                         </div>

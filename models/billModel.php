@@ -14,8 +14,6 @@
             return $result;
         }
 
-        
-
         public function getAllBill() {
             $result = NULL;
             $link = NULL;
@@ -54,6 +52,28 @@
             }else{
                 $data = NULL;
             }
+            return $data;
+        }
+
+        public function getBillByShopId($shopId) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $resultArr = [];
+            //$resultArr[0] = $link;
+            $data = array();
+            $query = "SELECT * from bill WHERE shop_id = $shopId";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $category = new Bill($rows["id"], $rows["cus_firstName"], $rows["cus_lastName"], $rows["email"], $rows['phoneNumber'], $rows['total'], $rows['address'], $rows["shop_id"], $rows['status']);
+                    array_push($data, $category);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            //$resultArr[1] = $data;
             return $data;
         }
     }

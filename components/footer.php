@@ -17,7 +17,7 @@
                 </div>
                 <div class="body">
                     <ul class="list">
-                        <li class="item">Về IvyModa</li>
+                        <li class="item">Về Dabaki</li>
                         <li class="item">Tuyển dụng</li>
                         <li class="item">Hệ thống cửa hàng</li>
                     </ul>

@@ -6,7 +6,7 @@
     $limit = 4;
     $offset = ($currentPage - 1) * $limit;
     $totalPages = 0;
-    if($totalProducts > 0) {
+    if(isset($totalProducts)) {
         $totalPages = ceil($totalProducts / $limit);
         for($i = 1; $i <= $totalPages; $i++) {
             echo "
@@ -15,6 +15,10 @@
                 </form>
             ";
         }
+    }else {
+        echo "
+            <button class='page-item' name='page-submit' type='submit' value='0'>0</button>
+        ";
     }
     
 ?>

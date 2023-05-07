@@ -162,12 +162,34 @@
             return $data;
         }
 
+        public function getProductByNameSearch($searchstr){
+            $result = null;
+            $link = null;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * FROM products WHERE `name` LIKE '%$searchstr%'";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if (mysqli_num_rows($result) > 0){
+                while ($rows = mysqli_fetch_assoc($result)){
+                    $product = new Product($rows["id"], $rows["name"], $rows["price"], $rows["type"], 
+                    $rows["description"], $rows["category_id"], $rows["image01"], 
+                    $rows["image02"], $rows["status"], $rows["shop_id"]);
+                    array_push($data, $product);
+                }
+                giaiPhongBoNho($link, $result);
+            }
+            else {
+                $data = null;
+            }
+            return $data;
+        }
+
         public function getProductByNameProduct($name){
             $result = null;
             $link = null;
             taoKetNoi($link);
             $data = array();
-            $query = "SELECT * FROM products WHERE `name` = '$name'";
+            $query = "SELECT * FROM products WHERE `name` = '$name' ORDER BY `id` ASC";
             $result = chayTruyVanTraVeDL($link, $query);
             if (mysqli_num_rows($result) > 0){
                 while ($rows = mysqli_fetch_assoc($result)){

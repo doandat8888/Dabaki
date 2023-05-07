@@ -106,7 +106,7 @@
             $link = NULL;
             taoKetNoi($link);
             $data = array();
-            $query = "SELECT * from productsizecolor WHERE shop_id = $shopId limit $limit OFFSET $offset";
+            $query = "SELECT * from productsizecolor WHERE shop_id = $shopId ORDER BY `product_id` ASC limit $limit OFFSET $offset";
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
@@ -239,7 +239,7 @@
             $link = NULL;
             taoKetNoi($link);
             $data = array();
-            $query = "SELECT * FROM productsizecolor WHERE product_id = $productId AND shop_id = $shopId limit $limit OFFSET $offset";
+            $query = "SELECT * FROM productsizecolor WHERE product_id = $productId AND shop_id = $shopId ORDER BY `product_id` ASC limit $limit OFFSET $offset";
             $result = chayTruyVanTraVeDL($link, $query);
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {

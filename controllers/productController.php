@@ -85,7 +85,7 @@
         }
 
         public function getProductByNameSearchPage($name) {
-            $data = $this->model->getProductByName($name);
+            $data = $this->model->getProductByNameSearch($name);
             include_once "../../views/search/search-view.php";
         }
 

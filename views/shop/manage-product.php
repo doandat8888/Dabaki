@@ -57,7 +57,7 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
+                            <div class="product-info-item col-12 col-sm-12 col-lg-6" id="product_color">
                                 <div class="product-info-item-title">Màu sắc</div>
                                 <!-- <input type="text" placeholder="Nhập màu sắc" class="product-info-item-input" name="pro-color"> -->
                                 <select class="product-info-item-input" name="pro-color">
@@ -69,7 +69,7 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
+                            <div class="product-info-item col-12 col-sm-12 col-lg-6" id="product_size">
                                 <div class="product-info-item-title">Kích thước</div>
                                 <select class="product-info-item-input" name="pro-size">
                                     <option value="-1">Chọn kích thước</option>
@@ -80,19 +80,19 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
+                            <div class="product-info-item col-12 col-sm-12 col-lg-6" id="product_price">
                                 <div class="product-info-item-title">Nhập giá</div>
                                 <input type="text" placeholder="Nhập giá" class="product-info-item-input" name="pro-price">
                             </div>
-                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
+                            <div class="product-info-item col-12 col-sm-12 col-lg-6" id="product_quantity">
                                 <div class="product-info-item-title">Nhập số lượng</div>
                                 <input type="text" placeholder="Nhập số lượng" class="product-info-item-input" name="pro-quantity">
                             </div>
-                            <div class="product-info-item col-12 col-sm-12 col-lg-12">
+                            <div class="product-info-item col-12 col-sm-12 col-lg-12" id="product_description">
                                 <div class="product-info-item-title">Mô tả</div>
                                 <textarea type="text" placeholder="Nhập mô tả" class="product-info-item-input" name="pro-description"></textarea>
                             </div>
-                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
+                            <div class="product-info-item col-12 col-sm-12 col-lg-6" id="product_type">
                                 <div class="product-info-item-title">Loại</div>
                                 <select class="product-info-item-input" name="pro-type">
                                     <option value="-1">Chọn loại</option>
@@ -103,7 +103,7 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="product-info-item col-12 col-sm-12 col-lg-6">
+                            <div class="product-info-item col-12 col-sm-12 col-lg-6" id="product_category">
                                 <div class="product-info-item-title">Danh mục</div>
                                 <select class="product-info-item-input" name="pro-category">
                                     <option value="-1">Chọn danh mục</option>
@@ -115,11 +115,11 @@
                                     
                                 </select>
                             </div>
-                            <div class="product-info-item col-12">
+                            <div class="product-info-item col-12" id="product_img_01">
                                 <div class="product-info-item-title">Link ảnh 1</div>
                                 <input type="text" placeholder="Nhập link ảnh 1" class="product-info-item-input" name="pro-img-01">
                             </div>
-                            <div class="product-info-item col-12">
+                            <div class="product-info-item col-12" id="product_img_02">
                                 <div class="product-info-item-title">Link ảnh 2</div>
                                 <input type="text" placeholder="Nhập link ảnh 2" class="product-info-item-input" name="pro-img-02">
                             </div>
@@ -158,7 +158,7 @@
         <table class="manage-product-table table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col-1">ID</th>
+                    <th scope="col-1">ID sản phẩm</th>
                     <th scope="col-2">Hình ảnh</th>
                     <th scope="col-2">Tên sản phẩm</th>
                     <th scope="col-2">Giá</th>
@@ -205,13 +205,13 @@
                             $name = $productData[0]->getName();
                             $color = $_POST['pro-color'];
                             $size = $_POST['pro-size'];
-                            $price = $_POST['pro-price'];
+                            //$price = $_POST['pro-price'];
                             $quantity = $_POST['pro-quantity'];
-                            $type = $_POST['pro-type'];
-                            $description = $_POST['pro-description'];
-                            $categoryId = $_POST['pro-category'];
-                            $image01 = $_POST['pro-img-01'];
-                            $image02 = $_POST['pro-img-02'];
+                            // $type = $_POST['pro-type'];
+                            // $description = $_POST['pro-description'];
+                            // $categoryId = $_POST['pro-category'];
+                            // $image01 = $_POST['pro-img-01'];
+                            // $image02 = $_POST['pro-img-02'];
                             $productSizeColorController->setProductSizeColor($productId, $size, $color, $quantity, $shopId);
                         }
                     }

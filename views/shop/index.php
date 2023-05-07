@@ -21,7 +21,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
         
         <link rel="stylesheet" href="./register-shop.css">
-        <title>Kênh người bán | IvyModa</title>
+        <link rel="stylesheet" href="./setting-shop.css">
+        <link rel="stylesheet" href="./dashboard.css">
+        <title>Kênh người bán | Dabaki</title>
     </head>
     <body>
         <?php
@@ -32,5 +34,6 @@
             }
         ?>
         <script src="./script.js"></script>
+        <script src="https://kryogenix.org/code/browser/sorttable/sorttable.js"></script>
     </body>
 </html>
