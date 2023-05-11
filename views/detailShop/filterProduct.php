@@ -51,11 +51,11 @@
         if(isset($_GET['category'])) {
             if(isset($_GET["shopId"])) {
                 $shopId = $_GET["shopId"];
-                $querystring .= "?shopId=$shopId";
                 $category = $_GET['category'];
                 $category_filter = implode("", $category);
                 for($i = 0; $i < strlen($category_filter); $i++){
-                    $querystring .= "category%5B%5D=".$category_filter[$i];
+                    $querystring .= "&shopId=$shopId&category%5B%5D=".$category_filter[$i];
+                    
                 }
             }else {
                 $category = $_GET['category'];

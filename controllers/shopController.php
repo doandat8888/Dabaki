@@ -25,5 +25,14 @@
             $result = $this->model->updateShop($shopId, $shopName, $shopImg, $shopAddress, $shopPhone);
             include_once "../../views/shop/result-edit-shop.php";
         }
+        public function getShopByIdBreadCrumb($shopId) {
+            $data = $this->model->getShopById($shopId);
+            include_once "../../views/detailShop/breadcrumb.php";
+        }
+        public function getShopByIdDetailInfo($shopId) {
+            $data = $this->model->getShopById($shopId);
+            $idShop = $shopId;
+            include_once "../../views/detailShop/shop-detail-view.php";
+        }
     }
 ?>

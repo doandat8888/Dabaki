@@ -24,12 +24,14 @@
                             <div class="shop-view-body-right">
                                 <p class="shop-name">'.$shop->getName().'</p>
                                 <p class="shop-address">'.$shop->getAddress().'</p>
-                                <button class="btn-view-shop">
-                                    <span class="material-symbols-outlined btn-view-shop-icon">
-                                        inventory_2
-                                    </span>
-                                    <p class="btn-view-shop-content">Xem cửa hàng</p>
-                                </button>
+                                <a href="../../views/detailShop/index.php?shopId=' . $shop->getId() . '">
+                                    <button class="btn-view-shop">
+                                        <span class="material-symbols-outlined btn-view-shop-icon">
+                                            inventory_2
+                                        </span>
+                                        <p class="btn-view-shop-content">Xem cửa hàng</p>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>

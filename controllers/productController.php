@@ -25,6 +25,13 @@
             include_once "../../views/admin/page-list-view.php";
         }
 
+        public function getProductByShopIdFilterPage($queryStr, $shopId) {
+            $queryString = $queryStr;
+            $products = $this->model->getProductByShopId($shopId);
+            $idShop = $shopId;
+            include_once "../../views/product/filter-product-page-view.php";
+        }
+
         public function getAllProductFilterPage($queryStr) {
             $queryString = $queryStr;
             $products = $this->model->getAllProduct();
@@ -210,7 +217,28 @@
             include_once "../../views/product/filter-product-view.php";
         }
 
+        public function filterProductByLimitShop($limit, $offset, $shopId) {
+            $data = $this->model->filterProductByLimitShop($limit, $offset, $shopId);
+            include_once "../../views/product/filter-product-view.php";
+        }
+
+        public function filterProductByTypeLimitShop($type, $limit, $offset, $shopId) {
+            $data = $this->model->filterProductByTypeLimitShop($type, $limit, $offset, $shopId);
+            include_once "../../views/product/filter-product-view.php";
+        }
+
         public function Display()
+        {
+            $currentPage = isset($_GET['current-page'])?$_GET['current-page']:1;
+            $limit = 4;
+            $offset = ($currentPage - 1) * $limit;
+            $totalPages = 0;
+            $type = isset($_GET['type'])?$_GET['type']:null;
+
+            include_once "../../views/product/filterProduct.php";
+        }
+
+        public function DisplayProductShop($shopId)
         {
             $currentPage = isset($_GET['current-page'])?$_GET['current-page']:1;
             $limit = 4;

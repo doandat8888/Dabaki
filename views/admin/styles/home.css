@@ -109,6 +109,9 @@ html, body {
     transition: all 0.5s ease;
 }
 
+.menu-logo img {
+    width: 50%;
+}
 
 
 

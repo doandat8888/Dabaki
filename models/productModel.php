@@ -464,6 +464,93 @@
             }
             return $data;
         }
+
+        public function filterProductByLimitShop($limit, $offset, $shopId) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * from products  WHERE `status` = 1 AND shop_id = $shopId ";
+            if(isset($_GET['input-min']) && isset($_GET['input-max'])) {
+                $minimumPrice = $_GET['input-min'];
+                $maximumPrice = $_GET['input-max'];
+                $query .= "AND price BETWEEN $minimumPrice AND $maximumPrice ";
+            }
+            if(isset($_POST['size'])) {
+                $size = $_POST['size'];
+                $size_filter = implode(", ", $size);
+                $query .= "AND size LIKE '%$size_filter%' ";
+            }
+
+            if(isset($_POST['color'])) {
+                $color = $_POST['color'];
+                $color_filter = implode(", ", $color);
+                $query .= "AND color LIKE '%$color_filter%' ";
+            }
+
+            if(isset($_GET['category'])) {
+                $categoryId = $_GET['category'];
+                $category_filter = implode(",", $categoryId);
+                $query .= "AND category_id IN ($category_filter)";
+            }
+
+            $query .= " ORDER BY `id` ASC limit $limit OFFSET $offset";
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $product = new Product($rows["id"], $rows["name"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
+                    array_push($data, $product);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            return $data;
+        }
+
+        public function filterProductByTypeLimitShop($type, $limit, $offset, $shopId) {
+            $result = NULL;
+            $link = NULL;
+            taoKetNoi($link);
+            $data = array();
+            $query = "SELECT * from products WHERE `type` = $type AND `status` = 1 AND shop_id = $shopId";
+            if(isset($_GET['input-min']) && isset($_GET['input-max'])) {
+                $minimumPrice = $_GET['input-min'];
+                $maximumPrice = $_GET['input-max'];
+                $query .= "AND price BETWEEN $minimumPrice AND $maximumPrice ";
+            }
+            if(isset($_POST['size'])) {
+                $size = $_POST['size'];
+                $size_filter = implode(", ", $size);
+                $query .= "AND size LIKE '%$size_filter%' ";
+            }
+
+            if(isset($_POST['color'])) {
+                $color = $_POST['color'];
+                $color_filter = implode(", ", $color);
+                $query .= "AND color LIKE '%$color_filter%' ";
+            }
+
+            if(isset($_GET['category'])) {
+                $categoryId = $_GET['category'];
+                $category_filter = implode(",", $categoryId);
+                $query .= "AND category_id IN ($category_filter)";
+            }
+
+            $query .= "ORDER BY `id` ASC limit $limit OFFSET $offset";
+
+            $result = chayTruyVanTraVeDL($link, $query);
+            if(mysqli_num_rows($result) > 0) {
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $product = new Product($rows["id"], $rows["name"], $rows["price"], $rows["type"], $rows["description"], $rows["category_id"], $rows["image01"], $rows["image02"], $rows["status"], $rows["shop_id"]);
+                    array_push($data, $product);
+                }
+                giaiPhongBoNho($link, $result);
+            }else{
+                $data = NULL;
+            }
+            return $data;
+        }
     }    
 ?>
 
