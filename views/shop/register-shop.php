@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="header-left col-8">
                         <a href="../../index.php" class="header-left-logo-link"><img src="../../src/img/logo.png" class="header-left-logo" alt=""></a>
-                        <p class="header-left-content">Đăng kí trở thành Người bán IvyModa</p>
+                        <p class="header-left-content">Đăng kí trở thành Người bán Dabaki</p>
                     </div>
                     <div class="header-right col-4">
 

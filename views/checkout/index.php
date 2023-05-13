@@ -31,6 +31,7 @@
         <div class="container">
             <?php 
                 include_once "../../components/header.php";
+                include_once "../../controllers/userController.php";
                 if(isset($_POST['return-cart-page'])) {
                     header("Location: ../../views/cart/index.php");
                 }
@@ -44,13 +45,14 @@
                                     Thông tin giao hàng
                                 </div>
                                 <div class="checkout-info-input">
-                                    <input name="checkout-info-name" type="text" class="checkout-info-input-item" placeholder="* Họ và tên">
-                                    <input name="checkout-info-email" type="text" class="checkout-info-input-item" placeholder="* Email">
-                                    <input name="checkout-info-number" type="text" class="checkout-info-input-item" placeholder="* Số điện thoại">
-                                    <input name="checkout-info-address" type="text" class="checkout-info-input-item" placeholder="* Địa chỉ">
-                                    <div class="checkout-info-input-txt">
-                                        * là trường không được để trống
-                                    </div>
+                                    <?php
+                                        if(isset($_SESSION['user_id'])) {
+                                            $userController = new UserController();
+                                            $idUser = $_SESSION['user_id'];
+                                            $userController->getUserByIdCheckoutInfo($idUser);
+                                        } 
+                                    ?>
+                                    
                                 </div>
                             </div>
                             <div class="checkout-payment">
@@ -144,28 +146,35 @@
                                         }
                                     } 
                                     if(isset($_POST['checkout-complete'])){
-                                        if(isset($_POST['checkout-method']) && isset($_POST['checkout-info-name']) && isset($_POST['checkout-info-email']) && isset($_POST['checkout-info-number']) && isset($_POST['total']) && isset($_POST['checkout-info-address'])){
-                                            if($_POST['checkout-info-name']!=="" && $_POST['checkout-info-email']!=="" && $_POST['checkout-info-number']!=="" && isset($_POST['total'])!=="" && $_POST['checkout-info-address']!==""){
-                                                // Nếu khách hàng nhập đủ thông tin
-                                                if($_POST['checkout-method'] == "cod") {
-                                                    $billController = new BillController();
-                                                    $detailBillController = new BillDetailController();
-                                                    $billController->getAllBill($_POST['checkout-info-name'], $_POST['checkout-info-email'], $_POST['checkout-info-number'], $_POST['total'], $_POST['checkout-info-address']);
-                                                }else {
-                                                    $totalValue = rtrim($_POST['total-1'], "đ");
-                                                    $checkoutController = new CheckoutController();
-                                                    $checkoutController->onlineCheckout($totalValue, $_POST['checkout-info-name'], $_POST['checkout-info-email'], $_POST['checkout-info-number'], $_POST['total'], $_POST['checkout-info-address']);
+                                        if(isset($_SESSION['cart'])) {
+                                            if(isset($_POST['checkout-method']) && isset($_POST['checkout-info-name']) && isset($_POST['checkout-info-email']) && isset($_POST['checkout-info-number']) && isset($_POST['total']) && isset($_POST['checkout-info-address'])){
+                                                if($_POST['checkout-info-name']!=="" && $_POST['checkout-info-email']!=="" && $_POST['checkout-info-number']!=="" && isset($_POST['total'])!=="" && $_POST['checkout-info-address']!==""){
+                                                    // Nếu khách hàng nhập đủ thông tin
+                                                    if(count($_SESSION['cart']) > 0) {
+                                                        if($_POST['checkout-method'] == "cod") {
+                                                            $billController = new BillController();
+                                                            $detailBillController = new BillDetailController();
+                                                            $billController->getAllBill($_POST['checkout-info-name'], $_POST['checkout-info-email'], $_POST['checkout-info-number'], $_POST['total'], $_POST['checkout-info-address']);
+                                                        }else {
+                                                            $totalValue = rtrim($_POST['total-1'], "đ");
+                                                            $checkoutController = new CheckoutController();
+                                                            $checkoutController->onlineCheckout($totalValue, $_POST['checkout-info-name'], $_POST['checkout-info-email'], $_POST['checkout-info-number'], $_POST['total'], $_POST['checkout-info-address']);
+                                                        }
+                                                    }else {
+                                                        echo "<script type='text/javascript'>alert('Chưa có sản phẩm trong giỏ hàng');</script>";
+                                                    }
+                                                    
                                                 }
+                                                else {
+                                                    // Nếu khách hàng nhập còn thiếu thông tin
+                                                    echo "<script type='text/javascript'>alert('Vui lòng nhập đủ thông tin');</script>";
+                                                }
+                                            }else{
+                                                // Vì lý do nào đó trường POST bị thiếu
+                                                echo "<script>alert('Có lỗi xảy ra')</script>";
+                                                echo "<script>window.location = 'index.php'</script>";
                                             }
-                                            else {
-                                                // Nếu khách hàng nhập còn thiếu thông tin
-                                                echo "<script type='text/javascript'>alert('Vui lòng nhập đủ thông tin');</script>";
-                                            }
-                                        }else{
-                                            // Vì lý do nào đó trường POST bị thiếu
-                                            echo "<script>alert('Error')</script>";
-                                            echo "<script>window.location = 'index.php'</script>";
-                                        }                         
+                                        }                     
                                     }        
                                 ?>
                             </div>

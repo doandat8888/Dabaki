@@ -29,6 +29,11 @@
                         $message = $_GET['msg'];
                     }
                 }
+                if(isset($_GET['checkoutStatus'])) {
+                    if($_GET['checkoutStatus'] == "success") {
+                        echo "<script type='text/javascript'>alert('Thanh toán thành công');</script>";
+                    }
+                }
                 include_once "./components/header.php";
             ?>
            

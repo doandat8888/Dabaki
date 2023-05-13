@@ -34,6 +34,11 @@
             }
         }
 
+        public function getUserByIdCheckoutInfo($idUser) {
+            $data = $this->model->getUserById($idUser);
+            include_once "../../views/checkout/checkout-info-view.php";
+        }
+
         public function getInfoAdmin($username, $password) {
             $data = $this->model->getUser($username, $password);
             include_once "../../views/admin/admin-info-view.php";
