@@ -69,17 +69,16 @@
                                     </div>
                                     <div class="checkout-payment-input-item">
                                         <input type="radio" name="checkout-method" value="payUrl"> 
-                                        <span class="material-symbols-outlined checkout-payment-input-item-icon">
+                                        <!-- <span class="material-symbols-outlined checkout-payment-input-item-icon">
                                             credit_card
-                                        </span>
+                                        </span> -->
+                                        <img class="checkout-payment-input-item-icon" src="../../src/img/logo-momo.jpg" alt="">
                                         <div class="checkout-payment-input-item-txt">Thanh toán qua ví Momo</div>
                                     </div>
                                     <div class="checkout-payment-input-item">
                                         <input type="radio" name="checkout-method" value="redirect">
-                                        <input id="hidden-redirect" type="hidden" name="redirect" value="">
-                                        <span class="material-symbols-outlined checkout-payment-input-item-icon">
-                                            shopping_bag
-                                        </span>
+                                        <input id="hidden-redirect" type="hidden" name="redirect" value="redirect">
+                                        <img class="checkout-payment-input-item-icon" src="../../src/img/vnpay.png" alt="">
                                         <div class="checkout-payment-input-item-txt">Thanh toán bằng ví VNPay</div>
                                     </div>
                                 </div>
@@ -137,6 +136,9 @@
                                     include_once "../../controllers/billDetailController.php";
                                     include_once "../../controllers/productController.php";
                                     include_once "../../controllers/checkoutController.php";
+                                    include_once "../../models/provinceModel.php";
+                                    include_once "../../models/districtModel.php";
+                                    include_once "../../models/wardModel.php";
                                     if(isset($_GET['checkoutStatus']) && isset($_GET['fullName']) && isset($_GET['email']) && isset($_GET['phoneNumber']) && isset($_GET['total']) && isset($_GET['address'])){
                                         if($_GET['checkoutStatus'] == "success") {
                                             echo "<script type='text/javascript'>alert('Thanh toán thành công');</script>";
@@ -146,19 +148,48 @@
                                         }
                                     } 
                                     if(isset($_POST['checkout-complete'])){
+                                        $provinceModel = new ProvinceModel();
+                                        $districtModel = new DistrictModel();
+                                        $wardModel = new WardModel();
                                         if(isset($_SESSION['cart'])) {
-                                            if(isset($_POST['checkout-method']) && isset($_POST['checkout-info-name']) && isset($_POST['checkout-info-email']) && isset($_POST['checkout-info-number']) && isset($_POST['total']) && isset($_POST['checkout-info-address'])){
-                                                if($_POST['checkout-info-name']!=="" && $_POST['checkout-info-email']!=="" && $_POST['checkout-info-number']!=="" && isset($_POST['total'])!=="" && $_POST['checkout-info-address']!==""){
+                                            if(isset($_POST['checkout-method']) && isset($_POST['checkout-info-name']) && isset($_POST['checkout-info-email']) 
+                                            && isset($_POST['checkout-info-number']) && isset($_POST['total']) && isset($_POST['address-province']) 
+                                            && isset($_POST['address-district']) && isset($_POST['address-ward']) && isset($_POST['address-street'])){
+                                                if($_POST['checkout-info-name']!=="" && $_POST['checkout-info-email']!=="" && $_POST['checkout-info-number']!=="" && isset($_POST['total'])!=="" 
+                                                && $_POST['address-province']!=="" && $_POST['address-district']!=="" && $_POST['address-ward']!=="" && $_POST['address-street']!==""){
                                                     // Nếu khách hàng nhập đủ thông tin
                                                     if(count($_SESSION['cart']) > 0) {
                                                         if($_POST['checkout-method'] == "cod") {
                                                             $billController = new BillController();
                                                             $detailBillController = new BillDetailController();
-                                                            $billController->getAllBill($_POST['checkout-info-name'], $_POST['checkout-info-email'], $_POST['checkout-info-number'], $_POST['total'], $_POST['checkout-info-address']);
+                                                            $provinceId = $_POST['address-province'];
+                                                            $districtId = $_POST['address-district'];
+                                                            $wardId = $_POST['address-ward'];
+                                                            $provinceData = $provinceModel->getProvinceById($provinceId);
+                                                            $districtData = $districtModel->getDistrictByProvinceId($provinceId);
+                                                            $wardData  = $wardModel->getWardByDistrictId($districtId);
+                                                            $provinceName = $provinceData[0]->getName();
+                                                            $districtName = $districtData[0]->getName();
+                                                            $wardName = $wardData[0]->getName();
+                                                            $addressDetail = $_POST['address-street'];
+                                                            $fullAddress = $addressDetail .', '. $wardName .', '. $districtName .', '. $provinceName;
+                                                            //echo $fullAddress;
+                                                            $billController->getAllBill($_POST['checkout-info-name'], $_POST['checkout-info-email'], $_POST['checkout-info-number'], $_POST['total'], $fullAddress);
                                                         }else {
                                                             $totalValue = rtrim($_POST['total-1'], "đ");
                                                             $checkoutController = new CheckoutController();
-                                                            $checkoutController->onlineCheckout($totalValue, $_POST['checkout-info-name'], $_POST['checkout-info-email'], $_POST['checkout-info-number'], $_POST['total'], $_POST['checkout-info-address']);
+                                                            $provinceId = $_POST['address-province'];
+                                                            $districtId = $_POST['address-district'];
+                                                            $wardId = $_POST['address-ward'];
+                                                            $provinceData = $provinceModel->getProvinceById($provinceId);
+                                                            $districtData = $districtModel->getDistrictByProvinceId($provinceId);
+                                                            $wardData  = $wardModel->getWardByDistrictId($districtId);
+                                                            $provinceName = $provinceData[0]->getName();
+                                                            $districtName = $districtData[0]->getName();
+                                                            $wardName = $wardData[0]->getName();
+                                                            $addressDetail = $_POST['address-street'];
+                                                            $fullAddress = $addressDetail .', '. $wardName .', '. $districtName .', '. $provinceName;
+                                                            $checkoutController->onlineCheckout($totalValue, $_POST['checkout-info-name'], $_POST['checkout-info-email'], $_POST['checkout-info-number'], $_POST['total'], $fullAddress);
                                                         }
                                                     }else {
                                                         echo "<script type='text/javascript'>alert('Chưa có sản phẩm trong giỏ hàng');</script>";
@@ -191,5 +222,6 @@
         </div>
     </body>
     <script src="https://kit.fontawesome.com/644376ed9d.js" crossorigin="anonymous"></script>
+    
     <script src="./script.js"></script>
 </html>

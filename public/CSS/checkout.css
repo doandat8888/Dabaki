@@ -103,6 +103,7 @@ html, body {
 .checkout-payment-input-item-icon {
     margin: 0 0.8rem;
     color: var(--text-color);
+    width: 3% !important;
 }
 
 .checkout-payment-input-txt {

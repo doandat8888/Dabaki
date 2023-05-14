@@ -103,6 +103,7 @@ html, body {
 .checkout-payment-input-item-icon {
     margin: 0 0.8rem;
     color: var(--text-color);
+    width: 5%;
 }
 
 .checkout-payment-input-txt {
@@ -208,4 +209,18 @@ html, body {
 }
 .up-icon:hover {
     fill: var(--black);
+}
+
+.checkout-info-item {
+    padding: 0.4rem !important;
+    margin-bottom: 1rem;
+}
+
+.checkout-info-item-title {
+    font-size: 1.4rem;
+}
+
+.checkout-info-item-input {
+    padding: 1rem;
+    font-size: 1.4rem;
 }

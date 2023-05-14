@@ -46,7 +46,8 @@
                         $extraData = $extraData;
 
                         $requestId = time() . "";
-                        $requestType = "payWithATM";
+                        //$requestType = "payWithATM";
+                        $requestType = "captureWallet";
                         //$extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
                         //before sign HMAC SHA256 signature
                         $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
@@ -73,18 +74,22 @@
                 }else if($_POST['checkout-method'] == "redirect") {
                     $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
                     $vnp_Returnurl = "http://localhost:3000/views/checkout/index.php?checkoutStatus=success&fullName=$fullName&email=$email&phoneNumber=$phoneNumber&total=$total&address=$address";
-                    $vnp_TmnCode = "QAHY6OM4";//Mã website tại VNPAY 
-                    $vnp_HashSecret = "GWXJQNHWVEWKXQCVYZWNMLFSXCOMLGGQ"; //Chuỗi bí mật
+                    //$vnp_TmnCode = "QAHY6OM4";//Mã website tại VNPAY 
+                    //$vnp_HashSecret = "GWXJQNHWVEWKXQCVYZWNMLFSXCOMLGGQ"; //Chuỗi bí mật
+                    $vnp_TmnCode = "UD2KZW06";//Mã website tại VNPAY 
+                    $vnp_HashSecret = "HUQJSLMKGFXYCNYOWXBBEYDAGEGNMOBB"; //Chuỗi bí mật
+                    //UD2KZW06
 
-                    $vnp_TxnRef = "TXN" . date('YmdHis') . rand(1000,9999);; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+                    //$vnp_TxnRef = "TXN" . date('YmdHis') . rand(1000,9999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+                    $vnp_TxnRef = '23554';
                     $vnp_OrderInfo = "Thanh toan don hang VNPay";
                     $vnp_OrderType = "billpayment";
                     $vnp_Amount = $totalValue * 100;
                     $vnp_Locale = 'vn';
                     $vnp_BankCode = 'NCB';
                     $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-                    $timeout = 30; // timeout tối đa của VNPay là 15 phút
-                    $vnp_ExpireDate = date('YmdHis', strtotime('+'.$timeout.' minutes')); // tính thời điểm hết hạn của giao dịch
+                    //$timeout = 30; // timeout tối đa của VNPay là 15 phút
+                    //$vnp_ExpireDate = date('YmdHis', strtotime('+'.$timeout.' minutes')); // tính thời điểm hết hạn của giao dịch
                     //Add Params of 2.0.1 Version
                     //$vnp_ExpireDate = date('YmdHis');
                     //Billing
@@ -121,7 +126,7 @@
                         "vnp_OrderType" => $vnp_OrderType,
                         "vnp_ReturnUrl" => $vnp_Returnurl,
                         "vnp_TxnRef" => $vnp_TxnRef,
-                        "vnp_ExpireDate"=> $vnp_ExpireDate
+                        //"vnp_ExpireDate"=> $vnp_ExpireDate
                         // "vnp_Bill_Mobile"=>$vnp_Bill_Mobile,
                         // "vnp_Bill_Email"=>$vnp_Bill_Email,
                         // "vnp_Bill_FirstName"=>$vnp_Bill_FirstName,
@@ -169,8 +174,10 @@
                     , 'message' => 'success'
                     , 'data' => $vnp_Url);
                     if (isset($_POST['checkout-method'])) {
-                        header('Location: ' . $vnp_Url);
-                        die();
+                        if($_POST['checkout-method'] == 'redirect') {
+                            header('Location: ' . $vnp_Url);
+                            die();
+                        }
                     } else {
                         echo json_encode($returnData);
                     }

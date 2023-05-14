@@ -1010,3 +1010,13 @@ input.search-link:hover {
     height: 100%;
     width: 100%;
 }
+
+.checkout-info-item {
+    padding: 0.4rem !important;
+}
+
+.checkout-info-item-input {
+    padding: 0.4rem 0.4rem;
+    width: 100% !important;
+    font-size: 1rem;
+}
