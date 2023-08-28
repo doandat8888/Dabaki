@@ -5,6 +5,5 @@
         $provinceId = $_GET['provinceId'];
         $districtController = new DistrictController();
         $districtController->getDistrictByProvinceIdCheckoutInfo($provinceId);
-        
     }
 ?>
